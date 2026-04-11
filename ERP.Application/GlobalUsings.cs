@@ -35,7 +35,8 @@ global using ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands
 global using ERP.Application.Features.GeneralDefinitions.ItemRegistries.Queries;
 global using ERP.Application.Features.GeneralDefinitions.Countries.Commands;
 global using ERP.Application.Features.GeneralDefinitions.Countries.Queries;
-
+global using ERP.Application.Common.Mapping;
+global using ERP.Domain.Entities.GeneralDefinitions;
 // ── BCL ──────────────────────────────────────────────────────
 global using System;
 global using System.Collections.Generic;
@@ -50,8 +51,9 @@ global using MediatR;
 global using FluentValidation;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
-global using ERP.Application.Common.Mapping;
-global using ERP.Domain.Entities.GeneralDefinitions;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+
 
 
 

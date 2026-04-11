@@ -4,7 +4,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.AddCl
 {
     public class AddClientTypeCommand : IRequest<Result<GetClientTypeDto>>
     {
-        public AddClientDto _addClientTypeDTO { get; set; }
+        public AddClientTypeDto _addClientTypeDTO { get; set; }
     }
 
     public class AddClientTypeHandler : IRequestHandler<AddClientTypeCommand, Result<GetClientTypeDto>>
@@ -20,7 +20,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.AddCl
         {
             var entity = new Domain.Entities.GeneralDefinitions.ClientType
             {
-                Type = request._addClientTypeDTO.ClientType,
+                Type = request._addClientTypeDTO.Type,
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
@@ -44,7 +44,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.AddCl
     {
         public AddClientTypeValidator()
         {
-            RuleFor(x => x._addClientTypeDTO.ClientType).NotEmpty().WithMessage("Type is required");
+            RuleFor(x => x._addClientTypeDTO.Type).NotEmpty().WithMessage("Type is required");
         }
     }
 }
