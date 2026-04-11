@@ -1,25 +1,34 @@
-﻿namespace ERP.Application.Common.Models
+namespace ERP.Application.Common.Models
 {
-    public class Result<T>
+    public class Result
     {
-        public bool Succeeded { get; set; }
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; } = string.Empty;
+        public List<string> Errors { get; set; } = new List<string>();
+
+        public static Result Success(string message = "Operation completed successfully")
+        {
+            return new Result { IsSuccess = true, Message = message };
+        }
+
+        public static Result Failure(string message, List<string>? errors = null)
+        {
+            return new Result { IsSuccess = false, Message = message, Errors = errors ?? new List<string>() };
+        }
+    }
+
+    public class Result<T> : Result
+    {
         public T? Data { get; set; }
-        public string[] Errors { get; set; } = Array.Empty<string>();
-        public string? Message { get; set; }
 
-        public static Result<T> Success(T data, string? message = null)
+        public static Result<T> Success(T data, string message = "Operation completed successfully")
         {
-            return new Result<T> { Succeeded = true, Data = data, Message = message };
+            return new Result<T> { IsSuccess = true, Message = message, Data = data };
         }
 
-        public static Result<T> Failure(IEnumerable<string> errors, string? message = null)
+        public static Result<T> Failure(string message, List<string>? errors = null)
         {
-            return new Result<T> { Succeeded = false, Errors = errors as string[] ?? new List<string>(errors).ToArray(), Message = message };
-        }
-
-        public static Result<T> Failure(string error, string? message = null)
-        {
-            return new Result<T> { Succeeded = false, Errors = new[] { error }, Message = message };
+            return new Result<T> { IsSuccess = false, Message = message, Errors = errors ?? new List<string>() };
         }
     }
 }

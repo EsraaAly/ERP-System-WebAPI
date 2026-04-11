@@ -5,7 +5,7 @@ namespace ERP.Api.Extensions
     {
         public static IActionResult ToActionResult<T>(this Result<T> result)
         {
-            if (result.Succeeded)
+            if (result.IsSuccess)
             {
                 return new OkObjectResult(result);
             }

@@ -8,6 +8,7 @@
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationServiceRegistration).Assembly));
 
+
             return services;
         }
     }

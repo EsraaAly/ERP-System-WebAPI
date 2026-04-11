@@ -10,5 +10,8 @@ global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
 
+// Domain-specific global usings
+global using ERP.Domain.Common;
+
 
 
