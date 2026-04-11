@@ -43,7 +43,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Countries.Commands.UpdateC
     {
         public UpdateCountryValidator()
         {
-            RuleFor(x => x._updateCountryDTO.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateCountryDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateCountryDTO.CountryName).NotEmpty().WithMessage("CountryName is required");
             RuleFor(x => x._updateCountryDTO.CountryCode).NotEmpty().WithMessage("CountryCode is required");
         }

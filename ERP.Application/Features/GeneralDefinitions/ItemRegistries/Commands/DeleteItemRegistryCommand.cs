@@ -37,7 +37,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.De
     {
         public DeleteItemRegistryValidator()
         {
-            RuleFor(x => x.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
         }
     }
 }

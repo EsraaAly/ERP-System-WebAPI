@@ -32,7 +32,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Units.Queries.GetUnitById
     {
         public GetUnitByIdValidator()
         {
-            RuleFor(x => x.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
         }
     }
 }

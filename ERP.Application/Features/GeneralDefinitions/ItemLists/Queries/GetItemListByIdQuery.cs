@@ -32,7 +32,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Queries.GetItemL
     {
         public GetItemListByIdValidator()
         {
-            RuleFor(x => x.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
         }
     }
 }

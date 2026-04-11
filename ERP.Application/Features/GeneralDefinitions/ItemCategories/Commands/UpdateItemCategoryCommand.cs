@@ -44,7 +44,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Up
     {
         public UpdateItemCategoryValidator()
         {
-            RuleFor(x => x._updateItemCategoryDTO.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateItemCategoryDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateItemCategoryDTO.ItemCategoryName).NotEmpty().WithMessage("ItemCategoryName is required");
             RuleFor(x => x._updateItemCategoryDTO.AccNo).NotEmpty().WithMessage("AccNo is required");
         }

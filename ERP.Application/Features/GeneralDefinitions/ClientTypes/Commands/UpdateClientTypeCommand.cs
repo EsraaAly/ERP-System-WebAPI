@@ -42,7 +42,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.Updat
     {
         public UpdateClientTypeValidator()
         {
-            RuleFor(x => x._updateClientTypeDTO.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateClientTypeDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateClientTypeDTO.Type).NotEmpty().WithMessage("Type is required");
         }
     }

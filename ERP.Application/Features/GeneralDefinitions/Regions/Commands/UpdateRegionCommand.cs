@@ -42,7 +42,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Regions.Commands.UpdateReg
     {
         public UpdateRegionValidator()
         {
-            RuleFor(x => x._updateRegionDTO.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateRegionDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateRegionDTO.RegionName).NotEmpty().WithMessage("RegionName is required");
         }
     }

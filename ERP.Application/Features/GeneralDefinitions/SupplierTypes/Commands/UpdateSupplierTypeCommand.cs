@@ -42,7 +42,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Upd
     {
         public UpdateSupplierTypeValidator()
         {
-            RuleFor(x => x._updateSupplierTypeDTO.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateSupplierTypeDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateSupplierTypeDTO.Type).NotEmpty().WithMessage("Type is required");
         }
     }

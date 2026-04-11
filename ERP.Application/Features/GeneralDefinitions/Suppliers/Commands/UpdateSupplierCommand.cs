@@ -52,7 +52,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.UpdateS
     {
         public UpdateSupplierValidator()
         {
-            RuleFor(x => x._updateSupplierDTO.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateSupplierDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateSupplierDTO.Name).NotEmpty().WithMessage("Name is required");
             RuleFor(x => x._updateSupplierDTO.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x._updateSupplierDTO.Email)).WithMessage("Invalid email format");
         }

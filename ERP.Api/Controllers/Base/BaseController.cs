@@ -1,7 +1,4 @@
-using ERP.Api.Extensions;
-using ERP.Application.Common.Models;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+
 
 namespace ERP.Api.Controllers.Base
 {
@@ -44,46 +41,5 @@ namespace ERP.Api.Controllers.Base
             return result.ToPagedActionResult(totalCount, pageNumber, pageSize);
         }
 
-        //protected IActionResult ValidationError(string message, List<string> errors)
-        //{
-        //    var result = Result.UnprocessableEntity(message, errors);
-        //    return result.ToActionResult();
-        //}
-
-        //protected IActionResult NotFound(string message = "Resource not found")
-        //{
-        //    var result = Result.NotFound(message);
-        //    return result.ToActionResult();
-        //}
-
-        //protected IActionResult BadRequest(string message, List<string>? errors = null)
-        //{
-        //    var result = Result.BadRequest(message, errors);
-        //    return result.ToActionResult();
-        //}
-
-        //protected IActionResult Unauthorized(string message = "Unauthorized access")
-        //{
-        //    var result = Result.Unauthorized(message);
-        //    return result.ToActionResult();
-        //}
-
-        //protected IActionResult Forbidden(string message = "Access forbidden")
-        //{
-        //    var result = Result.Forbidden(message);
-        //    return result.ToActionResult();
-        //}
-
-        //protected IActionResult Conflict(string message = "Resource conflict")
-        //{
-        //    var result = Result.Conflict(message);
-        //    return result.ToActionResult();
-        //}
-
-        //protected IActionResult InternalServerError(string message = "Internal server error")
-        //{
-        //    var result = Result.InternalServerError(message);
-        //    return result.ToActionResult();
-        //}
     }
 }
