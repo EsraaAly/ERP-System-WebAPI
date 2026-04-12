@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ERP.Domain.Entities.GeneralDefinitions
 {
     public class Store : BaseEntity
@@ -5,8 +7,8 @@ namespace ERP.Domain.Entities.GeneralDefinitions
         public string StoreName { get; set; } = string.Empty;
         public int StoreId { get; set; }
         public int StoreCategoryId { get; set; }
-        
-        // Navigation property
-        public StoreCategory StoreCategory { get; set; }
+
+        [ForeignKey("StoreCategoryId")]
+        public virtual StoreCategory StoreCategory { get; set; }
     }
 }

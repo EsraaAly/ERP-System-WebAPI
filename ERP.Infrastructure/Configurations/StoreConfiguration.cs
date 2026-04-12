@@ -1,6 +1,7 @@
+using ERP.Domain.Entities.GeneralDefinitions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ERP.Domain.Entities.GeneralDefinitions;
+using System.Reflection.Emit;
 
 namespace ERP.Infrastructure.Configurations
 {
@@ -18,10 +19,11 @@ namespace ERP.Infrastructure.Configurations
             builder.HasIndex(s => s.StoreId).IsUnique();
 
             // Foreign key relationships
-            builder.HasOne<StoreCategory>()
-                .WithMany()
-                .HasForeignKey(s => s.StoreCategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(s => s.StoreCategory)    
+              .WithMany(c => c.Stores)          
+              .HasForeignKey(s => s.StoreCategoryId) 
+              .OnDelete(DeleteBehavior.Restrict)
+              .HasConstraintName("FK_Stores_StoreCategories_StoreCategoryId");
         }
     }
 }

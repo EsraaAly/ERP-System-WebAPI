@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERP.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260412174810_AddNewTable_Store")]
-    partial class AddNewTable_Store
+    [Migration("20260412221241_ManualConstraintFix")]
+    partial class ManualConstraintFix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -638,10 +638,8 @@ namespace ERP.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("StoreCategory")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("StoreCategoryId")
+                        .HasColumnType("int");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
@@ -659,6 +657,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("StoreCategoryId");
+
                     b.HasIndex("StoreId")
                         .IsUnique();
 
@@ -666,6 +666,48 @@ namespace ERP.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CategoryNameAr")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryName")
+                        .IsUnique();
+
+                    b.ToTable("StoreCategories");
                 });
 
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Supplier", b =>
@@ -960,6 +1002,17 @@ namespace ERP.Infrastructure.Migrations
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Store", b =>
+                {
+                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", "StoreCategory")
+                        .WithMany("Stores")
+                        .HasForeignKey("StoreCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("StoreCategory");
+                });
+
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Supplier", b =>
                 {
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Country", "country")
@@ -1011,6 +1064,11 @@ namespace ERP.Infrastructure.Migrations
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Country", b =>
                 {
                     b.Navigation("Suppliers");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", b =>
+                {
+                    b.Navigation("Stores");
                 });
 
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Supplier", b =>

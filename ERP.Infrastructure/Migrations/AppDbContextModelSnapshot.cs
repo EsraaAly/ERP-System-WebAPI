@@ -638,9 +638,6 @@ namespace ERP.Infrastructure.Migrations
                     b.Property<int>("StoreCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StoreCategoryId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
 
@@ -658,8 +655,6 @@ namespace ERP.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StoreCategoryId");
-
-                    b.HasIndex("StoreCategoryId1");
 
                     b.HasIndex("StoreId")
                         .IsUnique();
@@ -1006,16 +1001,10 @@ namespace ERP.Infrastructure.Migrations
 
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Store", b =>
                 {
-                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", null)
-                        .WithMany()
-                        .HasForeignKey("StoreCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", "StoreCategory")
                         .WithMany("Stores")
-                        .HasForeignKey("StoreCategoryId1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("StoreCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("StoreCategory");

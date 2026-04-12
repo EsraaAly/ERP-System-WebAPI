@@ -33,6 +33,7 @@ namespace ERP.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
 
             #region BaseEntity Configuration
