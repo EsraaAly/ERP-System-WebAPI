@@ -32,7 +32,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("CityName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -56,6 +57,9 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CityName")
+                        .IsUnique();
+
                     b.ToTable("Cities");
                 });
 
@@ -69,7 +73,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("AccNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -129,7 +134,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("ReferenceNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Region")
                         .IsRequired()
@@ -157,6 +163,15 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccNo")
+                        .IsUnique();
+
+                    b.HasIndex("FullName")
+                        .IsUnique();
+
+                    b.HasIndex("ReferenceNo")
+                        .IsUnique();
 
                     b.ToTable("Clients");
                 });
@@ -245,7 +260,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("ItemSNo")
                         .HasColumnType("int");
@@ -317,11 +333,13 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("CountryCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("CountryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -341,7 +359,55 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryCode")
+                        .IsUnique();
+
+                    b.HasIndex("CountryName")
+                        .IsUnique();
+
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("DepartmentNameAr")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentName")
+                        .IsUnique();
+
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.ItemCategory", b =>
@@ -354,11 +420,13 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("AccName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("AccNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -372,7 +440,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("ItemCategoryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -381,6 +450,12 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccName")
+                        .IsUnique();
+
+                    b.HasIndex("ItemCategoryName")
+                        .IsUnique();
 
                     b.ToTable("ItemCategories");
                 });
@@ -460,6 +535,7 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DiscountAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
@@ -471,7 +547,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("ItemOrder")
                         .HasColumnType("int");
@@ -481,6 +558,7 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PriceAfterDiscount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PriceWithoutVat")
@@ -522,7 +600,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("RegionName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -532,7 +611,105 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RegionName")
+                        .IsUnique();
+
                     b.ToTable("Regions");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Store", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StoreCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoreCategoryId1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StoreName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StoreCategoryId");
+
+                    b.HasIndex("StoreCategoryId1");
+
+                    b.HasIndex("StoreId")
+                        .IsUnique();
+
+                    b.HasIndex("StoreName")
+                        .IsUnique();
+
+                    b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CategoryNameAr")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryName")
+                        .IsUnique();
+
+                    b.ToTable("StoreCategories");
                 });
 
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Supplier", b =>
@@ -545,11 +722,16 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("AccNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("CR")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -587,9 +769,8 @@ namespace ERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SupplierType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SupplierTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Telephone")
                         .IsRequired()
@@ -603,9 +784,26 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("VATNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccNo")
+                        .IsUnique();
+
+                    b.HasIndex("CR")
+                        .IsUnique();
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("SupplierTypeId");
+
+                    b.HasIndex("VATNo")
+                        .IsUnique();
 
                     b.ToTable("Suppliers");
                 });
@@ -730,7 +928,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -739,6 +938,9 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Type")
+                        .IsUnique();
 
                     b.ToTable("SupplierTypes");
                 });
@@ -763,7 +965,8 @@ namespace ERP.Infrastructure.Migrations
 
                     b.Property<string>("UnitName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -772,6 +975,9 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitName")
+                        .IsUnique();
 
                     b.ToTable("Units");
                 });
@@ -796,6 +1002,42 @@ namespace ERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Store", b =>
+                {
+                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", null)
+                        .WithMany()
+                        .HasForeignKey("StoreCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", "StoreCategory")
+                        .WithMany("Stores")
+                        .HasForeignKey("StoreCategoryId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StoreCategory");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Supplier", b =>
+                {
+                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Country", "country")
+                        .WithMany("Suppliers")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.SupplierType", "SupplierType")
+                        .WithMany("Suppliers")
+                        .HasForeignKey("SupplierTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SupplierType");
+
+                    b.Navigation("country");
                 });
 
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.SupplierContact", b =>
@@ -827,11 +1069,26 @@ namespace ERP.Infrastructure.Migrations
                     b.Navigation("PriceList");
                 });
 
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Country", b =>
+                {
+                    b.Navigation("Suppliers");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.StoreCategory", b =>
+                {
+                    b.Navigation("Stores");
+                });
+
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.Supplier", b =>
                 {
                     b.Navigation("Contacts");
 
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.SupplierType", b =>
+                {
+                    b.Navigation("Suppliers");
                 });
 #pragma warning restore 612, 618
         }

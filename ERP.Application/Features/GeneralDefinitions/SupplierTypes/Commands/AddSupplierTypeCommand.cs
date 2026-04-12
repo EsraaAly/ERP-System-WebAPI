@@ -16,6 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Add
 
         public async Task<Result<GetSupplierTypeDto>> Handle(AddSupplierTypeCommand request, CancellationToken cancellationToken)
         {
+
             var entity = new Domain.Entities.GeneralDefinitions.SupplierType
             {
                 Type = request._addSupplierTypeDTO.Type,

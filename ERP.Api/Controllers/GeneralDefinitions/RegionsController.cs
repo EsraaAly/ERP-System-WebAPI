@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddRegionCommand, GetRegionDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.Regions.GetRegionById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.Regions.GetRegionById + "/{id}")]
         public async Task<IActionResult> GetRegionById(int id)
         {
             var query = new GetRegionByIdQuery { Id = id };
@@ -28,19 +28,15 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllRegionsQuery, List<GetRegionDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.Regions.UpdateRegion)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.Regions.UpdateRegion + "/{id}")]
         public async Task<IActionResult> UpdateRegion(int id, [FromBody] UpdateRegionDto regionDto)
         {
-            if (id != regionDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
-            var command = new UpdateRegionCommand { _updateRegionDTO = regionDto };
+            var command = new UpdateRegionCommand { _updateRegionDTO = regionDto,Id=id };
             return await HandleCommand<UpdateRegionCommand, GetRegionDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.Regions.DeleteRegion)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.Regions.DeleteRegion + "/{id}")]
         public async Task<IActionResult> DeleteRegion(int id)
         {
             var command = new DeleteRegionCommand { Id = id };

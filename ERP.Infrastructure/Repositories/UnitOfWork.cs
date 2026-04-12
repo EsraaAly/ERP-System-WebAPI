@@ -24,6 +24,9 @@ namespace ERP.Infrastructure.Repositories
         private IGenericRepository<SupplierItem> _supplierItems;
         private IGenericRepository<SupplierType> _supplierTypes;
         private IGenericRepository<Unit> _unit;
+        private IGenericRepository<Department> _departments;
+        private IGenericRepository<Store> _stores;
+        private IGenericRepository<StoreCategory> _storeCategories;
 
         public UnitOfWork(AppDbContext context)
         {
@@ -47,6 +50,9 @@ namespace ERP.Infrastructure.Repositories
         public IGenericRepository<SupplierItem> SupplierItems => _supplierItems ??= new GenericRepository<SupplierItem>(_context);
         public IGenericRepository<SupplierType> SupplierTypes => _supplierTypes ??= new GenericRepository<SupplierType>(_context);
         public IGenericRepository<Unit> Unit => _unit ??= new GenericRepository<Unit>(_context);
+        public IGenericRepository<Department> Departments => _departments ??= new GenericRepository<Department>(_context);
+        public IGenericRepository<Store> Stores => _stores ??= new GenericRepository<Store>(_context);
+        public IGenericRepository<StoreCategory> StoreCategories => _storeCategories ??= new GenericRepository<StoreCategory>(_context);
 
         public async Task CommitAsync() => await _context.SaveChangesAsync();
 

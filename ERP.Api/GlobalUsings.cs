@@ -137,3 +137,23 @@ global using ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands
 global using ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.UpdateItemRegistry;
 global using ERP.Application.Features.GeneralDefinitions.ItemRegistries.Queries.GetAllItemRegistries;
 global using ERP.Application.Features.GeneralDefinitions.ItemRegistries.Queries.GetItemRegistryById;
+
+global using ERP.Application.Features.GeneralDefinitions.Departments.Commands.AddDepartment;
+global using ERP.Application.Features.GeneralDefinitions.Departments.Commands.DeleteDepartment;
+global using ERP.Application.Features.GeneralDefinitions.Departments.Commands.UpdateDepartment;
+global using ERP.Application.Features.GeneralDefinitions.Departments.Queries.GetAllDepartments;
+global using ERP.Application.Features.GeneralDefinitions.Departments.Queries.GetDepartmentById;
+
+global using ERP.Application.Features.GeneralDefinitions.Stores.Commands;
+global using ERP.Application.Features.GeneralDefinitions.Stores.Commands.AddStore;
+global using ERP.Application.Features.GeneralDefinitions.Stores.Commands.DeleteStore;
+global using ERP.Application.Features.GeneralDefinitions.Stores.Commands.UpdateStore;
+global using ERP.Application.Features.GeneralDefinitions.Stores.Queries.GetAllStores;
+global using ERP.Application.Features.GeneralDefinitions.Stores.Queries.GetStoreById;
+
+global using ERP.Application.Features.GeneralDefinitions.StoreCategories.Commands;
+global using ERP.Application.Features.GeneralDefinitions.StoreCategories.Commands.AddStoreCategory;
+global using ERP.Application.Features.GeneralDefinitions.StoreCategories.Commands.DeleteStoreCategory;
+global using ERP.Application.Features.GeneralDefinitions.StoreCategories.Commands.UpdateStoreCategory;
+global using ERP.Application.Features.GeneralDefinitions.StoreCategories.Queries.GetAllStoreCategories;
+global using ERP.Application.Features.GeneralDefinitions.StoreCategories.Queries.GetStoreCategoryById;

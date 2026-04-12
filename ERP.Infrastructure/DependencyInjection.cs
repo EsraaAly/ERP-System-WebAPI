@@ -30,6 +30,8 @@ namespace ERP.Infrastructure
             services.AddScoped<IGenericRepository<SupplierItem>, GenericRepository<SupplierItem>>();
             services.AddScoped<IGenericRepository<SupplierType>, GenericRepository<SupplierType>>();
             services.AddScoped<IGenericRepository<Unit>, GenericRepository<Unit>>();
+            services.AddScoped<IGenericRepository<Department>, GenericRepository<Department>>();
+            services.AddScoped<IGenericRepository<Store>, GenericRepository<Store>>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

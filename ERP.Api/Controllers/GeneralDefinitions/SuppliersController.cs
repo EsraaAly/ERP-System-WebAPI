@@ -28,15 +28,10 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllSuppliersQuery, List<GetSupplierDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.Suppliers.UpdateSupplier)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.Suppliers.UpdateSupplier + "/{id}")]
         public async Task<IActionResult> UpdateSupplier(int id, [FromBody] UpdateSupplierDto supplierDto)
         {
-            if (id != supplierDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
-
-            var command = new UpdateSupplierCommand { _updateSupplierDTO = supplierDto };
+            var command = new UpdateSupplierCommand { _updateSupplierDTO = supplierDto, Id = id };
             return await HandleCommand<UpdateSupplierCommand, GetSupplierDto>(command);
         }
 

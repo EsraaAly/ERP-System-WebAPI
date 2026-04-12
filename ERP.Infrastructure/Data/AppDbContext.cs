@@ -27,6 +27,9 @@ namespace ERP.Infrastructure.Data
         public DbSet<SupplierItem> SupplierItems { get; set; }
         public DbSet<SupplierType> SupplierTypes { get; set; }
         public DbSet<Unit> Units { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Store> Stores { get; set; }
+        public DbSet<StoreCategory> StoreCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -60,12 +63,16 @@ namespace ERP.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new CountryConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());
+            modelBuilder.ApplyConfiguration(new SupplierTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new RegionConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new ItemCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ItemRegistryConfiguration());
             modelBuilder.ApplyConfiguration(new ClientPriceListConfiguration());
+            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new StoreConfiguration());
+            modelBuilder.ApplyConfiguration(new StoreCategoryConfiguration());
             #endregion
         }
     }

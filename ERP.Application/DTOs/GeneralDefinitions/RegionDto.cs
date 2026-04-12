@@ -20,7 +20,6 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
     public class UpdateRegionDto : RegionBase
     {
-        public int Id { get; set; }
-        public string RegionName { get; set; } = string.Empty;
+
     }
 }

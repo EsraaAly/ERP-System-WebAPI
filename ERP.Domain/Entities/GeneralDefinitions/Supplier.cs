@@ -6,7 +6,12 @@
 
         public string NameAr { get; set; }
 
-        public string SupplierType { get; set; }
+        public int SupplierTypeId { get; set; }
+        
+        public SupplierType SupplierType { get; set; }
+
+        public int CountryId { get; set; }
+        public Country country { get; set; }
 
         public string SupplierCountry { get; set; }
 

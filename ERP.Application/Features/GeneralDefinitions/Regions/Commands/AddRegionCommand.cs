@@ -29,8 +29,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Regions.Commands.AddRegion
             var addedEntity = await _unitOfWork.Regions.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetRegionDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetRegionDto>();
                 return Result<GetRegionDto>.Success(dto, "Region added successfully");
             }
 

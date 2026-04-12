@@ -13,7 +13,8 @@ namespace ERP.Infrastructure.Repositories
 
         public async Task<TEntity> AddEntityAsync(TEntity entity)
         {
-            await  _appDbContext.Set<TEntity>().AddAsync(entity);
+            await ValidateEntityAsync(entity);
+            await _appDbContext.Set<TEntity>().AddAsync(entity);
             return entity;
         }
 
@@ -68,6 +69,7 @@ namespace ERP.Infrastructure.Repositories
 
         public async Task<bool> UpdateEntityAsync(TEntity entity)
         {
+            await ValidateEntityAsync(entity);
             var entry = _appDbContext.Set<TEntity>().Update(entity);
             if (entry != null)
             {
@@ -79,6 +81,15 @@ namespace ERP.Infrastructure.Repositories
         public async Task<TEntity> GetByExpressionAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _appDbContext.Set<TEntity>().FirstOrDefaultAsync(predicate);
+        }
+
+        private async Task ValidateEntityAsync(TEntity entity)
+        {
+            var validator = ValidationFactory.GetValidator<TEntity>();
+            if (validator != null)
+            {
+                await validator.ValidateAsync(entity, _appDbContext);
+            }
         }
     }
 }

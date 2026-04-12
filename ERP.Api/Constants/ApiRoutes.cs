@@ -140,6 +140,33 @@ namespace ERP.Api.Constants
                 public const string UpdateItemRegistry = $"api/{Version}/itemregistries/Update";
                 public const string DeleteItemRegistry = $"api/{Version}/itemregistries/Delete";
             }
+
+            public static class Departments
+            {
+                public const string GetAllDepartments = $"api/{Version}/departments/GetAll";
+                public const string GetDepartmentById = $"api/{Version}/departments/GetById";
+                public const string AddDepartment = $"api/{Version}/departments/Add";
+                public const string UpdateDepartment = $"api/{Version}/departments/Update";
+                public const string DeleteDepartment = $"api/{Version}/departments/Delete";
+            }
+
+            public static class Stores
+            {
+                public const string GetAllStores = $"api/{Version}/stores/GetAll";
+                public const string GetStoreById = $"api/{Version}/stores/GetById";
+                public const string AddStore = $"api/{Version}/stores/Add";
+                public const string UpdateStore = $"api/{Version}/stores/Update";
+                public const string DeleteStore = $"api/{Version}/stores/Delete";
+            }
+
+            public static class StoreCategories
+            {
+                public const string GetAllStoreCategories = $"api/{Version}/storecategories/GetAll";
+                public const string GetStoreCategoryById = $"api/{Version}/storecategories/GetById";
+                public const string AddStoreCategory = $"api/{Version}/storecategories/Add";
+                public const string UpdateStoreCategory = $"api/{Version}/storecategories/Update";
+                public const string DeleteStoreCategory = $"api/{Version}/storecategories/Delete";
+            }
         }
     }
 }

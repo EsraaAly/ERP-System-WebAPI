@@ -4,8 +4,8 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     {
         public string Name { get; set; } = string.Empty;
         public string NameAr { get; set; } = string.Empty;
-        public string SupplierType { get; set; } = string.Empty;
-        public string SupplierCountry { get; set; } = string.Empty;
+        public int SupplierTypeId { get; set; }
+        public int CountryId { get; set; }
         public string Telephone { get; set; } = string.Empty;
         public string Fax { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
@@ -30,17 +30,6 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
     public class UpdateSupplierDto : SupplierBase
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string NameAr { get; set; } = string.Empty;
-        public string SupplierType { get; set; } = string.Empty;
-        public string SupplierCountry { get; set; } = string.Empty;
-        public string Telephone { get; set; } = string.Empty;
-        public string Fax { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Remarks { get; set; } = string.Empty;
-        public string CR { get; set; } = string.Empty;
-        public string VATNo { get; set; } = string.Empty;
-        public string AccNo { get; set; } = string.Empty;
+
     }
 }

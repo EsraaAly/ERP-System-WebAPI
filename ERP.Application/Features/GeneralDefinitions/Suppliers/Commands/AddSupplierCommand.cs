@@ -20,8 +20,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.AddSupp
             {
                 Name = request._addSupplierDTO.Name,
                 NameAr = request._addSupplierDTO.NameAr,
-                SupplierType = request._addSupplierDTO.SupplierType,
-                SupplierCountry = request._addSupplierDTO.SupplierCountry,
+                SupplierTypeId = request._addSupplierDTO.SupplierTypeId,
+                CountryId = request._addSupplierDTO.CountryId,
                 Telephone = request._addSupplierDTO.Telephone,
                 Fax = request._addSupplierDTO.Fax,
                 Email = request._addSupplierDTO.Email,
@@ -39,8 +39,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.AddSupp
             var addedEntity = await _unitOfWork.Suppliers.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetSupplierDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetSupplierDto>();
                 return Result<GetSupplierDto>.Success(dto, "Supplier added successfully");
             }
 

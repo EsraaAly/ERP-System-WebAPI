@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddCountryCommand, GetCountryDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.Countries.GetCountryById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.Countries.GetCountryById + "/{id}")]
         public async Task<IActionResult> GetCountryById(int id)
         {
             var query = new GetCountryByIdQuery { Id = id };
@@ -28,19 +28,15 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllCountriesQuery, List<GetCountryDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.Countries.UpdateCountry)]
-        public async Task<IActionResult> UpdateCountry(int id, [FromBody] UpdateCountryDto countryDto)
+        [HttpPut(ApiRoutes.GeneralDefinitions.Countries.UpdateCountry + "/{id}")]
+        public async Task<IActionResult> UpdateCountry(int id,[FromBody] UpdateCountryDto countryDto)
         {
-            if (id != countryDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
-            var command = new UpdateCountryCommand { _updateCountryDTO = countryDto };
+            var command = new UpdateCountryCommand { _updateCountryDTO = countryDto,Id = id };
             return await HandleCommand<UpdateCountryCommand, GetCountryDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.Countries.DeleteCountry)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.Countries.DeleteCountry + "/{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
             var command = new DeleteCountryCommand { Id = id };

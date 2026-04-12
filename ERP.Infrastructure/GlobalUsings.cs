@@ -20,8 +20,9 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 // ── Infrastructure — Data ────────────────────────────────────
 global using ERP.Infrastructure.Data;
 global using ERP.Infrastructure.Repositories;
-
+global using ERP.Infrastructure.Validation;
 global using ERP.Application.Common.Interfaces.IPersistence;
 global using ERP.Domain.Common;
 global using ERP.Domain.Entities.GeneralDefinitions;
+
 

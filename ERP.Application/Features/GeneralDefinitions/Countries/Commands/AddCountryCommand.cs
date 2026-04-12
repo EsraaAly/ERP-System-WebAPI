@@ -30,8 +30,9 @@ namespace ERP.Application.Features.GeneralDefinitions.Countries.Commands.AddCoun
             var addedEntity = await _unitOfWork.Countries.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetCountryDto>();
+                
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetCountryDto>();
                 return Result<GetCountryDto>.Success(dto, "Country added successfully");
             }
 

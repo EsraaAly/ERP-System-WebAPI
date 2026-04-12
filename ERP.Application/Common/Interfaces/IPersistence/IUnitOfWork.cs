@@ -19,6 +19,9 @@ namespace ERP.Application.Common.Interfaces.IPersistence
         IGenericRepository<SupplierItem> SupplierItems { get; }
         IGenericRepository<SupplierType> SupplierTypes { get; }
         IGenericRepository<Domain.Entities.GeneralDefinitions.Unit> Unit { get; }
+        IGenericRepository<Department> Departments { get; }
+        IGenericRepository<Store> Stores { get; }
+        IGenericRepository<StoreCategory> StoreCategories { get; }
 
         Task CommitAsync();
         //public void Dispose();

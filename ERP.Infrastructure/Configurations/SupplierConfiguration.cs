@@ -32,6 +32,14 @@ namespace ERP.Infrastructure.Configurations
             builder.HasIndex(s => s.AccNo).IsUnique();
 
             // Relationships
+            builder.HasOne(s => s.SupplierType)
+                .WithMany(t=>t.Suppliers)
+                .HasForeignKey(s => s.SupplierTypeId);
+
+            builder.HasOne(s => s.country)
+                .WithMany(t => t.Suppliers)
+                .HasForeignKey(s => s.CountryId);
+
             builder.HasMany(s => s.Contacts)
                 .WithOne(sc => sc.Supplier)
                 .HasForeignKey(sc => sc.SupplierID);
@@ -40,5 +48,7 @@ namespace ERP.Infrastructure.Configurations
                 .WithOne(si => si.Supplier)
                 .HasForeignKey(si => si.SupplierID);
         }
+
     }
+   
 }
