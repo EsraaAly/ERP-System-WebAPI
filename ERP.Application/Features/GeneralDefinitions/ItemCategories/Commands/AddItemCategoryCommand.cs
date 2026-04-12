@@ -24,7 +24,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Ad
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 

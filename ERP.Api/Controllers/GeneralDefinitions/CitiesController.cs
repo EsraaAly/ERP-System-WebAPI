@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddCityCommand, GetCityDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.Cities.GetCityById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.Cities.GetCityById + "/{id}")]
         public async Task<IActionResult> GetCityById(int id)
         {
             var query = new GetCityByIdQuery { Id = id };
@@ -28,19 +28,14 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllCitiesQuery, List<GetCityDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.Cities.UpdateCity)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.Cities.UpdateCity + "/{id}")]
         public async Task<IActionResult> UpdateCity(int id, [FromBody] UpdateCityDto cityDto)
         {
-            if (id != cityDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
-
-            var command = new UpdateCityCommand { _updateCityDTO = cityDto };
+            var command = new UpdateCityCommand { _updateCityDTO = cityDto,id = id };
             return await HandleCommand<UpdateCityCommand, GetCityDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.Cities.DeleteCity)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.Cities.DeleteCity + "/{id}")]
         public async Task<IActionResult> DeleteCity(int id)
         {
             var command = new DeleteCityCommand { Id = id };

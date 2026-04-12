@@ -24,15 +24,15 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.AddCl
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 
             var addedEntity = await _unitOfWork.ClientTypes.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetClientTypeDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetClientTypeDto>();
                 return Result<GetClientTypeDto>.Success(dto, "ClientType added successfully");
             }
 

@@ -27,7 +27,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierContacts.Commands.
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 

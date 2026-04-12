@@ -23,15 +23,16 @@ namespace ERP.Application.Features.GeneralDefinitions.Cities.Commands.AddCity
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 
             var addedEntity = await _unitOfWork.Cities.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetCityDto>();
+                
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetCityDto>();
                 return Result<GetCityDto>.Success(dto, "City added successfully");
             }
 

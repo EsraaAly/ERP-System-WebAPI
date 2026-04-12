@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddSupplierTypeCommand, GetSupplierTypeDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.SupplierTypes.GetSupplierTypeById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.SupplierTypes.GetSupplierTypeById + "/{id}")]
         public async Task<IActionResult> GetSupplierTypeById(int id)
         {
             var query = new GetSupplierTypeByIdQuery { Id = id };
@@ -28,19 +28,15 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllSupplierTypesQuery, List<GetSupplierTypeDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.SupplierTypes.UpdateSupplierType)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.SupplierTypes.UpdateSupplierType + "/{id}")]
         public async Task<IActionResult> UpdateSupplierType(int id, [FromBody] UpdateSupplierTypeDto supplierTypeDto)
         {
-            if (id != supplierTypeDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
-            var command = new UpdateSupplierTypeCommand { _updateSupplierTypeDTO = supplierTypeDto };
+            var command = new UpdateSupplierTypeCommand { _updateSupplierTypeDTO = supplierTypeDto, Id = id };
             return await HandleCommand<UpdateSupplierTypeCommand, GetSupplierTypeDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.SupplierTypes.DeleteSupplierType)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.SupplierTypes.DeleteSupplierType + "/{id}")]
         public async Task<IActionResult> DeleteSupplierType(int id)
         {
             var command = new DeleteSupplierTypeCommand { Id = id };

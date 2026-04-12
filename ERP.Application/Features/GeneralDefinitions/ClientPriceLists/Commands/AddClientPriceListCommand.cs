@@ -29,7 +29,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 

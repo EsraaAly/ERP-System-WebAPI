@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddClientTypeCommand, GetClientTypeDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.ClientTypes.GetClientTypeById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.ClientTypes.GetClientTypeById + "/{id}")]
         public async Task<IActionResult> GetClientTypeById(int id)
         {
             var query = new GetClientTypeByIdQuery { Id = id };
@@ -28,19 +28,15 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllClientTypesQuery, List<GetClientTypeDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.ClientTypes.UpdateClientType)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.ClientTypes.UpdateClientType + "/{id}")]
         public async Task<IActionResult> UpdateClientType(int id, [FromBody] UpdateClientTypeDto clientTypeDto)
         {
-            if (id != clientTypeDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
-
-            var command = new UpdateClientTypeCommand { _updateClientTypeDTO = clientTypeDto };
+ 
+            var command = new UpdateClientTypeCommand { _updateClientTypeDTO = clientTypeDto, id = id };
             return await HandleCommand<UpdateClientTypeCommand, GetClientTypeDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.ClientTypes.DeleteClientType)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.ClientTypes.DeleteClientType + "/{id}")]
         public async Task<IActionResult> DeleteClientType(int id)
         {
             var command = new DeleteClientTypeCommand { Id = id };

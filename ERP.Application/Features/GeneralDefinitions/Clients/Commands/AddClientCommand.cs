@@ -39,7 +39,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.AddClient
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 

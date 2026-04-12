@@ -27,7 +27,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientContacts.Commands.Ad
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 

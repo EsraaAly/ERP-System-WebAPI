@@ -2,6 +2,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.Updat
 {
     public class UpdateClientTypeCommand : IRequest<Result<GetClientTypeDto>>
     {
+        public int id { get; set; }
         public UpdateClientTypeDto _updateClientTypeDTO { get; set; }
     }
 
@@ -16,7 +17,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.Updat
 
         public async Task<Result<GetClientTypeDto>> Handle(UpdateClientTypeCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.ClientTypes.GetEntityByIdAsync(request._updateClientTypeDTO.Id);
+            var entity = await _unitOfWork.ClientTypes.GetEntityByIdAsync(request.id);
             if (entity == null)
             {
                 return Result<GetClientTypeDto>.Failure("ClientType not found");
@@ -29,8 +30,8 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.Updat
             var updatedEntity = await _unitOfWork.ClientTypes.UpdateEntityAsync(entity);
             if (updatedEntity != null)
             {
-                var dto = updatedEntity.Adapt<GetClientTypeDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = entity.Adapt<GetClientTypeDto>();
                 return Result<GetClientTypeDto>.Success(dto, "ClientType updated successfully");
             }
 
@@ -42,7 +43,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.Updat
     {
         public UpdateClientTypeValidator()
         {
-            RuleFor(x => x._updateClientTypeDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateClientTypeDTO.Type).NotEmpty().WithMessage("Type is required");
         }
     }

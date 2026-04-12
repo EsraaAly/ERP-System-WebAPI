@@ -23,7 +23,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Countries.Commands.AddCoun
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 

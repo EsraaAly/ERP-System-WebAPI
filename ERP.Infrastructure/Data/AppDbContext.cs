@@ -1,5 +1,6 @@
 ﻿
 using ERP.Domain.Entities.GeneralDefinitions;
+using ERP.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Infrastructure.Data
@@ -31,6 +32,7 @@ namespace ERP.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            #region BaseEntity Configuration
             // Apply soft delete filter to all entities that inherit from BaseEntity
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
@@ -51,68 +53,20 @@ namespace ERP.Infrastructure.Data
                     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
                 }
             }
+            #endregion
 
-            // Configure entity relationships and constraints
-
-            // Client configurations
-            modelBuilder.Entity<Client>()
-                .HasMany(c => c.Contacts)
-                .WithOne(cc => cc.Client)
-                .HasForeignKey(cc => cc.ClientID);
-
-            modelBuilder.Entity<Client>()
-                .HasMany(c => c.PriceList)
-                .WithOne(cpl => cpl.Client)
-                .HasForeignKey(cpl => cpl.ClientID);
-
-            // Supplier configurations
-            modelBuilder.Entity<Supplier>()
-                .HasMany(s => s.Contacts)
-                .WithOne(sc => sc.Supplier)
-                .HasForeignKey(sc => sc.SupplierID);
-
-            modelBuilder.Entity<Supplier>()
-                .HasMany(s => s.Items)
-                .WithOne(si => si.Supplier)
-                .HasForeignKey(si => si.SupplierID);
-
-            // Configure string properties with appropriate max lengths
-            modelBuilder.Entity<Client>()
-                .Property(c => c.FullName)
-                .HasMaxLength(200);
-
-            modelBuilder.Entity<Client>()
-                .Property(c => c.Email)
-                .HasMaxLength(150);
-
-            modelBuilder.Entity<Supplier>()
-                .Property(s => s.Name)
-                .HasMaxLength(200);
-
-            modelBuilder.Entity<Supplier>()
-                .Property(s => s.Email)
-                .HasMaxLength(150);
-
-            // Configure decimal properties with appropriate precision
-            modelBuilder.Entity<Client>()
-                .Property(c => c.CashLimit)
-                .HasPrecision(18, 2);
-
-            modelBuilder.Entity<ItemRegistry>()
-                .Property(ir => ir.PriceWithoutVat)
-                .HasPrecision(18, 2);
-
-            modelBuilder.Entity<ItemRegistry>()
-                .Property(ir => ir.Price)
-                .HasPrecision(18, 2);
-
-            modelBuilder.Entity<ClientPriceList>()
-                .Property(cpl => cpl.PriceWithoutVat)
-                .HasPrecision(18, 2);
-
-            modelBuilder.Entity<ClientPriceList>()
-                .Property(cpl => cpl.Price)
-                .HasPrecision(18, 2);
+            #region Apply Entity Configurations
+            // Apply all entity configurations from separate files
+            modelBuilder.ApplyConfiguration(new CountryConfiguration());
+            modelBuilder.ApplyConfiguration(new ClientConfiguration());
+            modelBuilder.ApplyConfiguration(new SupplierConfiguration());
+            modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new RegionConfiguration());
+            modelBuilder.ApplyConfiguration(new UnitConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemRegistryConfiguration());
+            modelBuilder.ApplyConfiguration(new ClientPriceListConfiguration());
+            #endregion
         }
     }
 }

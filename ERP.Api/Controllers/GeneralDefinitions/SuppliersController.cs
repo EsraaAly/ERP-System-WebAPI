@@ -40,7 +40,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<UpdateSupplierCommand, GetSupplierDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.Suppliers.DeleteSupplier)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.Suppliers.DeleteSupplier + "/{id}")]
         public async Task<IActionResult> DeleteSupplier(int id)
         {
             var command = new DeleteSupplierCommand { Id = id };

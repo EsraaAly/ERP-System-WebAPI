@@ -20,7 +20,5 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
     public class UpdateSupplierTypeDto : SupplierTypeBase
     {
-        public int Id { get; set; }
-        public string Type { get; set; } = string.Empty;
     }
 }

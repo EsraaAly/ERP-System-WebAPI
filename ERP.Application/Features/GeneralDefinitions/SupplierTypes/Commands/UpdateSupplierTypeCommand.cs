@@ -2,6 +2,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Upd
 {
     public class UpdateSupplierTypeCommand : IRequest<Result<GetSupplierTypeDto>>
     {
+        public int Id { get; set; }
         public UpdateSupplierTypeDto _updateSupplierTypeDTO { get; set; }
     }
 
@@ -16,7 +17,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Upd
 
         public async Task<Result<GetSupplierTypeDto>> Handle(UpdateSupplierTypeCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.SupplierTypes.GetEntityByIdAsync(request._updateSupplierTypeDTO.Id);
+            var entity = await _unitOfWork.SupplierTypes.GetEntityByIdAsync(request.Id);
             if (entity == null)
             {
                 return Result<GetSupplierTypeDto>.Failure("SupplierType not found");
@@ -29,8 +30,8 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Upd
             var updatedEntity = await _unitOfWork.SupplierTypes.UpdateEntityAsync(entity);
             if (updatedEntity != null)
             {
-                var dto = updatedEntity.Adapt<GetSupplierTypeDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = entity.Adapt<GetSupplierTypeDto>();
                 return Result<GetSupplierTypeDto>.Success(dto, "SupplierType updated successfully");
             }
 
@@ -42,7 +43,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Upd
     {
         public UpdateSupplierTypeValidator()
         {
-            RuleFor(x => x._updateSupplierTypeDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateSupplierTypeDTO.Type).NotEmpty().WithMessage("Type is required");
         }
     }

@@ -22,15 +22,15 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Add
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
-                UpdatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
                 IsDeleted = false,
             };
 
             var addedEntity = await _unitOfWork.SupplierTypes.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetSupplierTypeDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetSupplierTypeDto>();
                 return Result<GetSupplierTypeDto>.Success(dto, "SupplierType added successfully");
             }
 
