@@ -43,7 +43,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Cities.Commands.UpdateCity
     {
         public UpdateCityValidator()
         {
-            RuleFor(x => x._updateCityDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateCityDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateCityDTO.CityName).NotEmpty().WithMessage("CityName is required");
             RuleFor(x => x._updateCityDTO.Country).NotEmpty().WithMessage("Country is required");
         }

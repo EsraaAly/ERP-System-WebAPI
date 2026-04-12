@@ -1,4 +1,7 @@
-﻿namespace ERP.Application
+﻿using ERP.Application.Common.Behaviors;
+using System.Reflection;
+
+namespace ERP.Application
 {
     public static class ApplicationServiceRegistration
     {
@@ -6,9 +9,14 @@
         {
             MappingConfig.Configure();
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationServiceRegistration).Assembly));
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 
+                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
             return services;
         }
     }

@@ -37,7 +37,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.DeleteCli
     {
         public DeleteClientValidator()
         {
-            RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+                        RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required").NotEqual(0).WithMessage("Id cannot be zero").GreaterThan(0).WithMessage("Id must be positive");
         }
     }
 }

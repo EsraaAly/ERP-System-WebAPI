@@ -27,6 +27,9 @@ global using Microsoft.AspNetCore.Mvc;
 global using ERP.Infrastructure.Data;
 global using ERP.Api.Constants;
 global using ERP.Api.Controllers.Base;
+global using ERP.Api.Middlewares;
+global using ERP.Application;
+global using ERP.Infrastructure;
 
 // ── Features ──────────────────────────────────────────────
 global using ERP.Application.DTOs.GeneralDefinitions;

@@ -47,7 +47,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.UpdateI
     {
         public UpdateItemListValidator()
         {
-            RuleFor(x => x._updateItemListDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateItemListDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateItemListDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
             RuleFor(x => x._updateItemListDTO.Category).NotEmpty().WithMessage("Category is required");
         }

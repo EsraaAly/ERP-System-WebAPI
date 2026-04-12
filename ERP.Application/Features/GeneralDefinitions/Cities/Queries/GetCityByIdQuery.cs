@@ -4,7 +4,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Cities.Queries.GetCityById
 {
     public class GetCityByIdQuery : IRequest<Result<GetCityDto>>
     {
-        public int Id { get; set; }
+        [Required]
+        public int? Id { get; set; }
     }
 
     public class GetCityByIdHandler : IRequestHandler<GetCityByIdQuery, Result<GetCityDto>>
@@ -18,7 +19,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Cities.Queries.GetCityById
 
         public async Task<Result<GetCityDto>> Handle(GetCityByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.Cities.GetEntityByIdAsync(request.Id);
+            var entity = await _unitOfWork.Cities.GetEntityByIdAsync(request.Id.Value);
             if (entity == null)
             {
                 return Result<GetCityDto>.Failure("City not found");
@@ -34,7 +35,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Cities.Queries.GetCityById
     {
         public GetCityByIdValidator()
         {
-            RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required").NotEqual(0).WithMessage("Id cannot be zero").GreaterThan(0).WithMessage("Id must be positive");
         }
     }
 }

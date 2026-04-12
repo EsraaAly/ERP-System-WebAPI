@@ -42,7 +42,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Units.Commands.UpdateUnit
     {
         public UpdateUnitValidator()
         {
-            RuleFor(x => x._updateUnitDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateUnitDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateUnitDTO.UnitName).NotEmpty().WithMessage("UnitName is required");
         }
     }

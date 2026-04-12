@@ -51,7 +51,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Up
     {
         public UpdateItemRegistryValidator()
         {
-            RuleFor(x => x._updateItemRegistryDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateItemRegistryDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateItemRegistryDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
             RuleFor(x => x._updateItemRegistryDTO.ItemCategory).NotEmpty().WithMessage("ItemCategory is required");
             RuleFor(x => x._updateItemRegistryDTO.Price).GreaterThan(0).WithMessage("Price must be greater than 0");

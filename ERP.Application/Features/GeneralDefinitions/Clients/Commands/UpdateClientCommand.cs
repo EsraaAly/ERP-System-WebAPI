@@ -59,7 +59,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.UpdateCli
     {
         public UpdateClientValidator()
         {
-            RuleFor(x => x._updateClientDTO.Id).NotEmpty().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateClientDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateClientDTO.FullName).NotEmpty().WithMessage("FullName is required");
             RuleFor(x => x._updateClientDTO.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x._updateClientDTO.Email)).WithMessage("Invalid email format");
         }
