@@ -7,7 +7,9 @@
 
         public string SupplierName { get; set; }
 
-        public string ItemCategory { get; set; }
+        public int ItemCategoryId { get; set; }
+        
+        public ItemCategory ItemCategory { get; set; }
 
         public string ItemName { get; set; }
 

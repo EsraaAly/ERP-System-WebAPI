@@ -2,16 +2,17 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 {
     public abstract class ItemRegistryBase
     {
-        public string ItemCategory { get; set; } = string.Empty;
+        public int ItemCategoryId { get; set; }
         public string ItemName { get; set; } = string.Empty;
-        public string ClientType { get; set; } = string.Empty;
-        public string Region { get; set; } = string.Empty;
+        public int ClientTypeId { get; set; }
+        public int RegionId { get; set; }
         public decimal PriceWithoutVat { get; set; }
         public decimal Price { get; set; }
         public decimal DiscountAmount { get; set; }
         public decimal PriceAfterDiscount { get; set; }
         public string Details { get; set; } = string.Empty;
         public int ItemOrder { get; set; }
+        public int StoreId { get; set; }
     }
 
     public class AddItemRegistryDto : ItemRegistryBase
@@ -30,15 +31,5 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     public class UpdateItemRegistryDto : ItemRegistryBase
     {
         public int Id { get; set; }
-        public string ItemCategory { get; set; } = string.Empty;
-        public string ItemName { get; set; } = string.Empty;
-        public string ClientType { get; set; } = string.Empty;
-        public string Region { get; set; } = string.Empty;
-        public decimal PriceWithoutVat { get; set; }
-        public decimal Price { get; set; }
-        public decimal DiscountAmount { get; set; }
-        public decimal PriceAfterDiscount { get; set; }
-        public string Details { get; set; } = string.Empty;
-        public int ItemOrder { get; set; }
     }
 }

@@ -2,13 +2,19 @@
 {
     public class ItemRegistry : BaseEntity
     {
-        public string ItemCategory { get; set; } = string.Empty;
+        public int ItemCategoryId { get; set; }
+        
+        public ItemCategory ItemCategory { get; set; }
 
         public string ItemName { get; set; } = string.Empty;
 
-        public string ClientType { get; set; } = string.Empty;
+        public int ClientTypeId { get; set; }
+        
+        public ClientType ClientType { get; set; }
 
-        public string Region { get; set; } = string.Empty;
+        public int RegionId { get; set; }
+        
+        public Region Region { get; set; }
 
         public decimal PriceWithoutVat { get; set; }
 
@@ -21,6 +27,10 @@
         public string Details { get; set; } = string.Empty;
 
         public int ItemOrder { get; set; }
+        
+        public int StoreId { get; set; }
+        
+        public Store Store { get; set; }
 
     }
 }

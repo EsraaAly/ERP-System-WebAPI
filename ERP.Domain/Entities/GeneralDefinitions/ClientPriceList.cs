@@ -6,7 +6,9 @@
 
         public int ItemSNo { get; set; }
 
-        public string ItemCategory { get; set; } = string.Empty;
+        public int ItemCategoryId { get; set; }
+        
+        public ItemCategory ItemCategory { get; set; }
 
         public string ItemName { get; set; } = string.Empty;
 

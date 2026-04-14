@@ -24,6 +24,27 @@ namespace ERP.Infrastructure.Configurations
 
             builder.Property(ir => ir.PriceAfterDiscount)
                 .HasPrecision(18, 2);
+
+            // Foreign key relationships
+            builder.HasOne(ir => ir.ItemCategory)
+                .WithMany()
+                .HasForeignKey(ir => ir.ItemCategoryId)
+                .IsRequired();
+
+            builder.HasOne(ir => ir.ClientType)
+                .WithMany()
+                .HasForeignKey(ir => ir.ClientTypeId)
+                .IsRequired();
+
+            builder.HasOne(ir => ir.Region)
+                .WithMany()
+                .HasForeignKey(ir => ir.RegionId)
+                .IsRequired();
+
+            builder.HasOne(ir => ir.Store)
+                .WithMany()
+                .HasForeignKey(ir => ir.StoreId)
+                .IsRequired();
         }
     }
 }

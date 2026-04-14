@@ -4,7 +4,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     {
         public int ClientID { get; set; }
         public int ItemSNo { get; set; }
-        public string ItemCategory { get; set; } = string.Empty;
+        public int ItemCategoryId { get; set; }
         public string ItemName { get; set; } = string.Empty;
         public decimal PriceWithoutVat { get; set; }
         public decimal Price { get; set; }
@@ -28,13 +28,5 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     public class UpdateClientPriceListDto : ClientPriceListBase
     {
         public int Id { get; set; }
-        public int ClientID { get; set; }
-        public int ItemSNo { get; set; }
-        public string ItemCategory { get; set; } = string.Empty;
-        public string ItemName { get; set; } = string.Empty;
-        public decimal PriceWithoutVat { get; set; }
-        public decimal Price { get; set; }
-        public decimal DiscountAmount { get; set; }
-        public decimal PriceAfterDiscount { get; set; }
     }
 }

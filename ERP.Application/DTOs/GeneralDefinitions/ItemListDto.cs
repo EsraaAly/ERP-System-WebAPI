@@ -1,11 +1,13 @@
+using ERP.Domain.Enums;
+
 namespace ERP.Application.DTOs.GeneralDefinitions
 {
     public abstract class ItemListBase
     {
-        public string Category { get; set; } = string.Empty;
+        public int ItemCategoryId { get; set; }
         public string ItemName { get; set; } = string.Empty;
-        public string Unit { get; set; } = string.Empty;
-        public string Sales { get; set; } = string.Empty;
+        public int UnitId { get; set; }
+        public ItemSales Sales { get; set; }
         public int MinimumLevel { get; set; }
         public int ItemOrder { get; set; }
     }
@@ -26,11 +28,5 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     public class UpdateItemListDto : ItemListBase
     {
         public int Id { get; set; }
-        public string Category { get; set; } = string.Empty;
-        public string ItemName { get; set; } = string.Empty;
-        public string Unit { get; set; } = string.Empty;
-        public string Sales { get; set; } = string.Empty;
-        public int MinimumLevel { get; set; }
-        public int ItemOrder { get; set; }
     }
 }

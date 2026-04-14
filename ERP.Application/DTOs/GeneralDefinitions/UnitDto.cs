@@ -20,7 +20,6 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
     public class UpdateUnitDto : UnitBase
     {
-        public int Id { get; set; }
-        public string UnitName { get; set; } = string.Empty;
+
     }
 }

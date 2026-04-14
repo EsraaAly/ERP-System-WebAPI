@@ -19,8 +19,6 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Ad
             var entity = new Domain.Entities.GeneralDefinitions.ItemCategory
             {
                 ItemCategoryName = request._addItemCategoryDTO.ItemCategoryName,
-                AccNo = request._addItemCategoryDTO.AccNo,
-                AccName = request._addItemCategoryDTO.AccName,
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = "",
@@ -31,8 +29,8 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Ad
             var addedEntity = await _unitOfWork.ItemCategories.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetItemCategoryDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetItemCategoryDto>();
                 return Result<GetItemCategoryDto>.Success(dto, "ItemCategory added successfully");
             }
 

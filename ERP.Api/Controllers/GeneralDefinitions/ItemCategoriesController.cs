@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddItemCategoryCommand, GetItemCategoryDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.ItemCategories.GetItemCategoryById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.ItemCategories.GetItemCategoryById + "/{id}")]
         public async Task<IActionResult> GetItemCategoryById(int id)
         {
             var query = new GetItemCategoryByIdQuery { Id = id };
@@ -28,19 +28,15 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllItemCategoriesQuery, List<GetItemCategoryDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.ItemCategories.UpdateItemCategory)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.ItemCategories.UpdateItemCategory +"/{id}")]
         public async Task<IActionResult> UpdateItemCategory(int id, [FromBody] UpdateItemCategoryDto itemCategoryDto)
         {
-            if (id != itemCategoryDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
-            var command = new UpdateItemCategoryCommand { _updateItemCategoryDTO = itemCategoryDto };
+            var command = new UpdateItemCategoryCommand { _updateItemCategoryDTO = itemCategoryDto,Id=id };
             return await HandleCommand<UpdateItemCategoryCommand, GetItemCategoryDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.ItemCategories.DeleteItemCategory)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.ItemCategories.DeleteItemCategory + "/{id}")]
         public async Task<IActionResult> DeleteItemCategory(int id)
         {
             var command = new DeleteItemCategoryCommand { Id = id };

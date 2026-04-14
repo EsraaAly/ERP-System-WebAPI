@@ -64,11 +64,13 @@ namespace ERP.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new CountryConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());
+            modelBuilder.ApplyConfiguration(new SupplierItemConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new RegionConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new ItemCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemListConfiguration());
             modelBuilder.ApplyConfiguration(new ItemRegistryConfiguration());
             modelBuilder.ApplyConfiguration(new ClientPriceListConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());

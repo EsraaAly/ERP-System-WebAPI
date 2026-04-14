@@ -18,9 +18,9 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.AddItem
         {
             var entity = new Domain.Entities.GeneralDefinitions.ItemList
             {
-                Category = request._addItemListDTO.Category,
+                ItemCategoryId = request._addItemListDTO.ItemCategoryId,
                 ItemName = request._addItemListDTO.ItemName,
-                Unit = request._addItemListDTO.Unit,
+                UnitId = request._addItemListDTO.UnitId,
                 Sales = request._addItemListDTO.Sales,
                 MinimumLevel = request._addItemListDTO.MinimumLevel,
                 ItemOrder = request._addItemListDTO.ItemOrder,
@@ -48,7 +48,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.AddItem
         public AddItemListValidator()
         {
             RuleFor(x => x._addItemListDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._addItemListDTO.Category).NotEmpty().WithMessage("Category is required");
+            RuleFor(x => x._addItemListDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
         }
     }
 }

@@ -2,6 +2,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Units.Commands.UpdateUnit
 {
     public class UpdateUnitCommand : IRequest<Result<GetUnitDto>>
     {
+        public int Id { get; set; }
         public UpdateUnitDto _updateUnitDTO { get; set; }
     }
 
@@ -16,7 +17,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Units.Commands.UpdateUnit
 
         public async Task<Result<GetUnitDto>> Handle(UpdateUnitCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.Unit.GetEntityByIdAsync(request._updateUnitDTO.Id);
+            var entity = await _unitOfWork.Unit.GetEntityByIdAsync(request.Id);
             if (entity == null)
             {
                 return Result<GetUnitDto>.Failure("Unit not found");
@@ -29,8 +30,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Units.Commands.UpdateUnit
             var updatedEntity = await _unitOfWork.Unit.UpdateEntityAsync(entity);
             if (updatedEntity != null)
             {
-                var dto = updatedEntity.Adapt<GetUnitDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = entity.Adapt<GetUnitDto>();
                 return Result<GetUnitDto>.Success(dto, "Unit updated successfully");
             }
 
@@ -42,7 +43,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Units.Commands.UpdateUnit
     {
         public UpdateUnitValidator()
         {
-            RuleFor(x => x._updateUnitDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateUnitDTO.UnitName).NotEmpty().WithMessage("UnitName is required");
         }
     }

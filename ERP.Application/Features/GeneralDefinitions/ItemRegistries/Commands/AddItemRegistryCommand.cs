@@ -18,10 +18,11 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Ad
         {
             var entity = new Domain.Entities.GeneralDefinitions.ItemRegistry
             {
-                ItemCategory = request._addItemRegistryDTO.ItemCategory,
+                ItemCategoryId = request._addItemRegistryDTO.ItemCategoryId,
                 ItemName = request._addItemRegistryDTO.ItemName,
-                ClientType = request._addItemRegistryDTO.ClientType,
-                Region = request._addItemRegistryDTO.Region,
+                ClientTypeId = request._addItemRegistryDTO.ClientTypeId,
+                RegionId = request._addItemRegistryDTO.RegionId,
+                StoreId = request._addItemRegistryDTO.StoreId,
                 PriceWithoutVat = request._addItemRegistryDTO.PriceWithoutVat,
                 Price = request._addItemRegistryDTO.Price,
                 DiscountAmount = request._addItemRegistryDTO.DiscountAmount,
@@ -52,7 +53,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Ad
         public AddItemRegistryValidator()
         {
             RuleFor(x => x._addItemRegistryDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._addItemRegistryDTO.ItemCategory).NotEmpty().WithMessage("ItemCategory is required");
+            RuleFor(x => x._addItemRegistryDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
             RuleFor(x => x._addItemRegistryDTO.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
         }
     }

@@ -18,6 +18,17 @@ namespace ERP.Infrastructure.Configurations
             builder.Property(cpl => cpl.ItemName)
                 .IsRequired()
                 .HasMaxLength(200);
+
+            // Foreign key relationships
+            builder.HasOne(cpl => cpl.Client)
+                .WithMany()
+                .HasForeignKey(cpl => cpl.ClientID)
+                .IsRequired();
+
+            builder.HasOne(cpl => cpl.ItemCategory)
+                .WithMany()
+                .HasForeignKey(cpl => cpl.ItemCategoryId)
+                .IsRequired();
         }
     }
 }

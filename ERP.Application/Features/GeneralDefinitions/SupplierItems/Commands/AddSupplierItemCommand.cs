@@ -20,7 +20,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Add
             {
                 SupplierID = request._addSupplierItemDTO.SupplierID,
                 SupplierName = request._addSupplierItemDTO.SupplierName,
-                ItemCategory = request._addSupplierItemDTO.ItemCategory,
+                ItemCategoryId = request._addSupplierItemDTO.ItemCategoryId,
                 ItemName = request._addSupplierItemDTO.ItemName,
                 CreatedBy = "System",
                 CreatedDate = DateTime.UtcNow,
@@ -47,7 +47,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Add
         {
             RuleFor(x => x._addSupplierItemDTO.SupplierID).GreaterThan(0).WithMessage("SupplierID is required");
             RuleFor(x => x._addSupplierItemDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._addSupplierItemDTO.ItemCategory).NotEmpty().WithMessage("ItemCategory is required");
+            RuleFor(x => x._addSupplierItemDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
         }
     }
 }

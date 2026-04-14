@@ -22,9 +22,9 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.UpdateI
                 return Result<GetItemListDto>.Failure("ItemList not found");
             }
 
-            entity.Category = request._updateItemListDTO.Category;
+            entity.ItemCategoryId = request._updateItemListDTO.ItemCategoryId;
             entity.ItemName = request._updateItemListDTO.ItemName;
-            entity.Unit = request._updateItemListDTO.Unit;
+            entity.UnitId = request._updateItemListDTO.UnitId;
             entity.Sales = request._updateItemListDTO.Sales;
             entity.MinimumLevel = request._updateItemListDTO.MinimumLevel;
             entity.ItemOrder = request._updateItemListDTO.ItemOrder;
@@ -49,7 +49,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.UpdateI
         {
             RuleFor(x => x._updateItemListDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateItemListDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._updateItemListDTO.Category).NotEmpty().WithMessage("Category is required");
+            RuleFor(x => x._updateItemListDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
         }
     }
 }

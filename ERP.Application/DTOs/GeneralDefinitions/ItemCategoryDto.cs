@@ -22,9 +22,5 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
     public class UpdateItemCategoryDto : ItemCategoryBase
     {
-        public int Id { get; set; }
-        public string ItemCategoryName { get; set; } = string.Empty;
-        public string AccNo { get; set; } = string.Empty;
-        public string AccName { get; set; } = string.Empty;
     }
 }

@@ -4,7 +4,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     {
         public int SupplierID { get; set; }
         public string SupplierName { get; set; } = string.Empty;
-        public string ItemCategory { get; set; } = string.Empty;
+        public int ItemCategoryId { get; set; }
         public string ItemName { get; set; } = string.Empty;
     }
 
@@ -24,9 +24,5 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     public class UpdateSupplierItemDto : SupplierItemBase
     {
         public int Id { get; set; }
-        public int SupplierID { get; set; }
-        public string SupplierName { get; set; } = string.Empty;
-        public string ItemCategory { get; set; } = string.Empty;
-        public string ItemName { get; set; } = string.Empty;
     }
 }

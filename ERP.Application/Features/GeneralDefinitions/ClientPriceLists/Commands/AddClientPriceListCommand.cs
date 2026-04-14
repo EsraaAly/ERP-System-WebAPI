@@ -20,7 +20,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
             {
                 ClientID = request._addClientPriceListDTO.ClientID,
                 ItemSNo = request._addClientPriceListDTO.ItemSNo,
-                ItemCategory = request._addClientPriceListDTO.ItemCategory,
+                ItemCategoryId = request._addClientPriceListDTO.ItemCategoryId,
                 ItemName = request._addClientPriceListDTO.ItemName,
                 PriceWithoutVat = request._addClientPriceListDTO.PriceWithoutVat,
                 Price = request._addClientPriceListDTO.Price,

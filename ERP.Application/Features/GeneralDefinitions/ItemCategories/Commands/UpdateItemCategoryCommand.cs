@@ -2,6 +2,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Up
 {
     public class UpdateItemCategoryCommand : IRequest<Result<GetItemCategoryDto>>
     {
+        public int Id { get; set; }
         public UpdateItemCategoryDto _updateItemCategoryDTO { get; set; }
     }
 
@@ -16,15 +17,13 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Up
 
         public async Task<Result<GetItemCategoryDto>> Handle(UpdateItemCategoryCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.ItemCategories.GetEntityByIdAsync(request._updateItemCategoryDTO.Id);
+            var entity = await _unitOfWork.ItemCategories.GetEntityByIdAsync(request.Id);
             if (entity == null)
             {
                 return Result<GetItemCategoryDto>.Failure("ItemCategory not found");
             }
 
             entity.ItemCategoryName = request._updateItemCategoryDTO.ItemCategoryName;
-            entity.AccNo = request._updateItemCategoryDTO.AccNo;
-            entity.AccName = request._updateItemCategoryDTO.AccName;
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
@@ -44,7 +43,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Up
     {
         public UpdateItemCategoryValidator()
         {
-            RuleFor(x => x._updateItemCategoryDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateItemCategoryDTO.ItemCategoryName).NotEmpty().WithMessage("ItemCategoryName is required");
             RuleFor(x => x._updateItemCategoryDTO.AccNo).NotEmpty().WithMessage("AccNo is required");
         }

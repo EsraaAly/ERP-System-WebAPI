@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddUnitCommand, GetUnitDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.Units.GetUnitById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.Units.GetUnitById + "/{id}")]
         public async Task<IActionResult> GetUnitById(int id)
         {
             var query = new GetUnitByIdQuery { Id = id };
@@ -28,19 +28,15 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllUnitsQuery, List<GetUnitDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.Units.UpdateUnit)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.Units.UpdateUnit + "/{id}")]
         public async Task<IActionResult> UpdateUnit(int id, [FromBody] UpdateUnitDto unitDto)
         {
-            if (id != unitDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
-            var command = new UpdateUnitCommand { _updateUnitDTO = unitDto };
+            var command = new UpdateUnitCommand { _updateUnitDTO = unitDto ,Id = id};
             return await HandleCommand<UpdateUnitCommand, GetUnitDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.Units.DeleteUnit)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.Units.DeleteUnit + "/{id}")]
         public async Task<IActionResult> DeleteUnit(int id)
         {
             var command = new DeleteUnitCommand { Id = id };

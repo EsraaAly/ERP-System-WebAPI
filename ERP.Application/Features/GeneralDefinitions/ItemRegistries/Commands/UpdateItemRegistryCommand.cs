@@ -22,10 +22,11 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Up
                 return Result<GetItemRegistryDto>.Failure("ItemRegistry not found");
             }
 
-            entity.ItemCategory = request._updateItemRegistryDTO.ItemCategory;
+            entity.ItemCategoryId = request._updateItemRegistryDTO.ItemCategoryId;
             entity.ItemName = request._updateItemRegistryDTO.ItemName;
-            entity.ClientType = request._updateItemRegistryDTO.ClientType;
-            entity.Region = request._updateItemRegistryDTO.Region;
+            entity.ClientTypeId = request._updateItemRegistryDTO.ClientTypeId;
+            entity.RegionId = request._updateItemRegistryDTO.RegionId;
+            entity.StoreId = request._updateItemRegistryDTO.StoreId;
             entity.PriceWithoutVat = request._updateItemRegistryDTO.PriceWithoutVat;
             entity.Price = request._updateItemRegistryDTO.Price;
             entity.DiscountAmount = request._updateItemRegistryDTO.DiscountAmount;
@@ -53,7 +54,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Up
         {
             RuleFor(x => x._updateItemRegistryDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateItemRegistryDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._updateItemRegistryDTO.ItemCategory).NotEmpty().WithMessage("ItemCategory is required");
+            RuleFor(x => x._updateItemRegistryDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
             RuleFor(x => x._updateItemRegistryDTO.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
         }
     }

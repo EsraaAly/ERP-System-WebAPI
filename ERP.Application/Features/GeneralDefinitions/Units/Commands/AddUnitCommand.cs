@@ -29,8 +29,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Units.Commands.AddUnit
             var addedEntity = await _unitOfWork.Unit.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetUnitDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetUnitDto>();
                 return Result<GetUnitDto>.Success(dto, "Unit added successfully");
             }
 

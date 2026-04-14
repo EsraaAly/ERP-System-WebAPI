@@ -24,7 +24,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Upd
 
             entity.SupplierID = request._updateSupplierItemDTO.SupplierID;
             entity.SupplierName = request._updateSupplierItemDTO.SupplierName;
-            entity.ItemCategory = request._updateSupplierItemDTO.ItemCategory;
+            entity.ItemCategoryId = request._updateSupplierItemDTO.ItemCategoryId;
             entity.ItemName = request._updateSupplierItemDTO.ItemName;
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
@@ -48,7 +48,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Upd
             RuleFor(x => x._updateSupplierItemDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateSupplierItemDTO.SupplierID).GreaterThan(0).WithMessage("SupplierID is required");
             RuleFor(x => x._updateSupplierItemDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._updateSupplierItemDTO.ItemCategory).NotEmpty().WithMessage("ItemCategory is required");
+            RuleFor(x => x._updateSupplierItemDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
         }
     }
 }

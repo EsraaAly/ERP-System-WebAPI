@@ -24,7 +24,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
 
             entity.ClientID = request._updateClientPriceListDTO.ClientID;
             entity.ItemSNo = request._updateClientPriceListDTO.ItemSNo;
-            entity.ItemCategory = request._updateClientPriceListDTO.ItemCategory;
+            entity.ItemCategoryId = request._updateClientPriceListDTO.ItemCategoryId;
             entity.ItemName = request._updateClientPriceListDTO.ItemName;
             entity.PriceWithoutVat = request._updateClientPriceListDTO.PriceWithoutVat;
             entity.Price = request._updateClientPriceListDTO.Price;
