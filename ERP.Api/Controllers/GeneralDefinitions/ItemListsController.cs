@@ -45,7 +45,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<DeleteItemListCommand, bool>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.ItemLists.GetItemListById + "/{id}")]
+        [HttpGet(ApiRoutes.GeneralDefinitions.ItemLists.GetItemListsByCategoryId + "/{id}")]
         public async Task<IActionResult> GetItemListByCategoryId(int id)
         {
             var query = new GetItemListByCategoryIdQuery { Id = id };
