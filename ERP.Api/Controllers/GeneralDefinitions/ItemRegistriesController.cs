@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddItemRegistryCommand, GetItemRegistryDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.ItemRegistries.GetItemRegistryById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.ItemRegistries.GetItemRegistryById + "/{id}")]
         public async Task<IActionResult> GetItemRegistryById(int id)
         {
             var query = new GetItemRegistryByIdQuery { Id = id };
@@ -28,19 +28,15 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllItemRegistriesQuery, List<GetItemRegistryDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.ItemRegistries.UpdateItemRegistry)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.ItemRegistries.UpdateItemRegistry + "/{id}")]
         public async Task<IActionResult> UpdateItemRegistry(int id, [FromBody] UpdateItemRegistryDto itemRegistryDto)
         {
-            if (id != itemRegistryDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
-            var command = new UpdateItemRegistryCommand { _updateItemRegistryDTO = itemRegistryDto };
+            var command = new UpdateItemRegistryCommand { _updateItemRegistryDTO = itemRegistryDto,Id = id };
             return await HandleCommand<UpdateItemRegistryCommand, GetItemRegistryDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.ItemRegistries.DeleteItemRegistry)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.ItemRegistries.DeleteItemRegistry + "/{id}")]
         public async Task<IActionResult> DeleteItemRegistry(int id)
         {
             var command = new DeleteItemRegistryCommand { Id = id };

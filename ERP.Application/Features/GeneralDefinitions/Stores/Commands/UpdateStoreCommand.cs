@@ -29,8 +29,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Stores.Commands.UpdateStor
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.Stores.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.Stores.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
                 await _unitOfWork.CommitAsync();
                 var dto = entity.Adapt<GetStoreDto>();

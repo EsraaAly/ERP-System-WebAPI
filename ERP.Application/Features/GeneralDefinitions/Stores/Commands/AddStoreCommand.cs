@@ -16,17 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Stores.Commands.AddStore
 
         public async Task<Result<GetStoreDto>> Handle(AddStoreCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.Store
-            {
-                StoreName = request._addStoreDTO.StoreName,
-                StoreId = request._addStoreDTO.StoreId,
-                StoreCategoryId = request._addStoreDTO.StoreCategoryId,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addStoreDTO.Adapt<Domain.Entities.GeneralDefinitions.Store>();
 
             var addedEntity = await _unitOfWork.Stores.AddEntityAsync(entity);
             if (addedEntity != null)

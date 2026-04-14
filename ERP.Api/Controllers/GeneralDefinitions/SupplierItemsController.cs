@@ -14,7 +14,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddSupplierItemCommand, GetSupplierItemDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.SupplierItems.GetSupplierItemById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.SupplierItems.GetSupplierItemById + "/{id}")]
         public async Task<IActionResult> GetSupplierItemById(int id)
         {
             var query = new GetSupplierItemByIdQuery { Id = id };
@@ -28,19 +28,15 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllSupplierItemsQuery, List<GetSupplierItemDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.SupplierItems.UpdateSupplierItem)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.SupplierItems.UpdateSupplierItem+"/{id}")]
         public async Task<IActionResult> UpdateSupplierItem(int id, [FromBody] UpdateSupplierItemDto supplierItemDto)
         {
-            if (id != supplierItemDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
-            var command = new UpdateSupplierItemCommand { _updateSupplierItemDTO = supplierItemDto };
+            var command = new UpdateSupplierItemCommand { _updateSupplierItemDTO = supplierItemDto,Id=id };
             return await HandleCommand<UpdateSupplierItemCommand, GetSupplierItemDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.SupplierItems.DeleteSupplierItem)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.SupplierItems.DeleteSupplierItem + "/{id}")]
         public async Task<IActionResult> DeleteSupplierItem(int id)
         {
             var command = new DeleteSupplierItemCommand { Id = id };

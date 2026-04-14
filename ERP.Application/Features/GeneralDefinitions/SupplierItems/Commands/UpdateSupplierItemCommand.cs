@@ -2,6 +2,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Upd
 {
     public class UpdateSupplierItemCommand : IRequest<Result<GetSupplierItemDto>>
     {
+        public int Id { get; set; }
         public UpdateSupplierItemDto _updateSupplierItemDTO { get; set; }
     }
 
@@ -16,24 +17,23 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Upd
 
         public async Task<Result<GetSupplierItemDto>> Handle(UpdateSupplierItemCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.SupplierItems.GetEntityByIdAsync(request._updateSupplierItemDTO.Id);
+            var entity = await _unitOfWork.SupplierItems.GetEntityByIdAsync(request.Id);
             if (entity == null)
             {
                 return Result<GetSupplierItemDto>.Failure("SupplierItem not found");
             }
 
-            entity.SupplierID = request._updateSupplierItemDTO.SupplierID;
-            entity.SupplierName = request._updateSupplierItemDTO.SupplierName;
+            entity.SupplierId = request._updateSupplierItemDTO.SupplierID;
             entity.ItemCategoryId = request._updateSupplierItemDTO.ItemCategoryId;
-            entity.ItemName = request._updateSupplierItemDTO.ItemName;
+            entity.ItemId = request._updateSupplierItemDTO.ItemId;
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.SupplierItems.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.SupplierItems.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
-                var dto = updatedEntity.Adapt<GetSupplierItemDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = entity.Adapt<GetSupplierItemDto>();
                 return Result<GetSupplierItemDto>.Success(dto, "SupplierItem updated successfully");
             }
 
@@ -45,10 +45,10 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Upd
     {
         public UpdateSupplierItemValidator()
         {
-            RuleFor(x => x._updateSupplierItemDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateSupplierItemDTO.SupplierID).GreaterThan(0).WithMessage("SupplierID is required");
-            RuleFor(x => x._updateSupplierItemDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._updateSupplierItemDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
+            RuleFor(x => x._updateSupplierItemDTO.ItemId).NotEmpty().WithMessage("Item is required");
+            RuleFor(x => x._updateSupplierItemDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategory is required");
         }
     }
 }

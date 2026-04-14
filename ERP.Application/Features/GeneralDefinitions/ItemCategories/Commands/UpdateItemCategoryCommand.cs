@@ -27,10 +27,10 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Up
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.ItemCategories.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.ItemCategories.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
-                var dto = updatedEntity.Adapt<GetItemCategoryDto>();
+                var dto = entity.Adapt<GetItemCategoryDto>();
                 await _unitOfWork.CommitAsync();
                 return Result<GetItemCategoryDto>.Success(dto, "ItemCategory updated successfully");
             }
@@ -45,7 +45,6 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Up
         {
             RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateItemCategoryDTO.ItemCategoryName).NotEmpty().WithMessage("ItemCategoryName is required");
-            RuleFor(x => x._updateItemCategoryDTO.AccNo).NotEmpty().WithMessage("AccNo is required");
         }
     }
 }

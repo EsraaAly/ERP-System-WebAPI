@@ -28,8 +28,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Departments.Commands.Updat
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.Departments.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.Departments.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
                 await _unitOfWork.CommitAsync();
                 var dto = entity.Adapt<GetDepartmentDto>();

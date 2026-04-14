@@ -130,6 +130,7 @@ namespace ERP.Api.Constants
                 public const string AddItemList = $"api/{Version}/itemlists/Add";
                 public const string UpdateItemList = $"api/{Version}/itemlists/Update";
                 public const string DeleteItemList = $"api/{Version}/itemlists/Delete";
+                public const string GetItemListsByCategoryId = $"api/{Version}/itemlists/GetByCategoryId";
             }
 
             public static class ItemRegistries

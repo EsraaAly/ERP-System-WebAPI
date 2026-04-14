@@ -16,16 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Countries.Commands.AddCoun
 
         public async Task<Result<GetCountryDto>> Handle(AddCountryCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.Country
-            {
-                CountryName = request._addCountryDTO.CountryName,
-                CountryCode = request._addCountryDTO.CountryCode,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addCountryDTO.Adapt<Domain.Entities.GeneralDefinitions.Country>();
 
             var addedEntity = await _unitOfWork.Countries.AddEntityAsync(entity);
             if (addedEntity != null)

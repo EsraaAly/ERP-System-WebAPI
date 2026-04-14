@@ -28,8 +28,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Countries.Commands.UpdateC
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.Countries.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.Countries.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
                 await _unitOfWork.CommitAsync();
                 var dto = entity.Adapt<GetCountryDto>();

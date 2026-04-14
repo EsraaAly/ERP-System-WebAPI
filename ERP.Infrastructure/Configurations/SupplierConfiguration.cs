@@ -46,7 +46,7 @@ namespace ERP.Infrastructure.Configurations
 
             builder.HasMany(s => s.Items)
                 .WithOne(si => si.Supplier)
-                .HasForeignKey(si => si.SupplierID);
+                .HasForeignKey(si => si.SupplierId);
         }
 
     }

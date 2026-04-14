@@ -2,6 +2,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.UpdateI
 {
     public class UpdateItemListCommand : IRequest<Result<GetItemListDto>>
     {
+        public int Id { get; set; }
         public UpdateItemListDto _updateItemListDTO { get; set; }
     }
 
@@ -16,7 +17,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.UpdateI
 
         public async Task<Result<GetItemListDto>> Handle(UpdateItemListCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.ItemLists.GetEntityByIdAsync(request._updateItemListDTO.Id);
+            var entity = await _unitOfWork.ItemLists.GetEntityByIdAsync(request.Id);
             if (entity == null)
             {
                 return Result<GetItemListDto>.Failure("ItemList not found");
@@ -31,11 +32,12 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.UpdateI
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.ItemLists.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.ItemLists.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
-                var dto = updatedEntity.Adapt<GetItemListDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = entity .Adapt<GetItemListDto>();
+
                 return Result<GetItemListDto>.Success(dto, "ItemList updated successfully");
             }
 
@@ -47,7 +49,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.UpdateI
     {
         public UpdateItemListValidator()
         {
-            RuleFor(x => x._updateItemListDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
             RuleFor(x => x._updateItemListDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
             RuleFor(x => x._updateItemListDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
         }

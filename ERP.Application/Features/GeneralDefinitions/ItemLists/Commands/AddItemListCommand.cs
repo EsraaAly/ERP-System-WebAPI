@@ -16,26 +16,13 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.AddItem
 
         public async Task<Result<GetItemListDto>> Handle(AddItemListCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.ItemList
-            {
-                ItemCategoryId = request._addItemListDTO.ItemCategoryId,
-                ItemName = request._addItemListDTO.ItemName,
-                UnitId = request._addItemListDTO.UnitId,
-                Sales = request._addItemListDTO.Sales,
-                MinimumLevel = request._addItemListDTO.MinimumLevel,
-                ItemOrder = request._addItemListDTO.ItemOrder,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addItemListDTO.Adapt<Domain.Entities.GeneralDefinitions.ItemList>();
 
             var addedEntity = await _unitOfWork.ItemLists.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetItemListDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetItemListDto>();
                 return Result<GetItemListDto>.Success(dto, "ItemList added successfully");
             }
 
@@ -49,6 +36,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemLists.Commands.AddItem
         {
             RuleFor(x => x._addItemListDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
             RuleFor(x => x._addItemListDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
+            RuleFor(x => x._addItemListDTO.Sales).IsInEnum();
         }
     }
 }

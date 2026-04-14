@@ -2,8 +2,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 {
     public abstract class ItemRegistryBase
     {
-        public int ItemCategoryId { get; set; }
-        public string ItemName { get; set; } = string.Empty;
+        public int ItemId { get; set; }
         public int ClientTypeId { get; set; }
         public int RegionId { get; set; }
         public decimal PriceWithoutVat { get; set; }
@@ -30,6 +29,5 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
     public class UpdateItemRegistryDto : ItemRegistryBase
     {
-        public int Id { get; set; }
     }
 }

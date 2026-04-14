@@ -16,15 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Regions.Commands.AddRegion
 
         public async Task<Result<GetRegionDto>> Handle(AddRegionCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.Region
-            {
-                RegionName = request._addRegionDTO.RegionName,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addRegionDTO.Adapt<Domain.Entities.GeneralDefinitions.Region>();
 
             var addedEntity = await _unitOfWork.Regions.AddEntityAsync(entity);
             if (addedEntity != null)

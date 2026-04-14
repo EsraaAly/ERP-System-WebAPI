@@ -24,5 +24,6 @@ global using ERP.Infrastructure.Validation;
 global using ERP.Application.Common.Interfaces.IPersistence;
 global using ERP.Domain.Common;
 global using ERP.Domain.Entities.GeneralDefinitions;
-
+global using ERP.Application.Common.Interfaces.IPersistence.GeneralDefinitions;
+global using ERP.Infrastructure.Repositories.GeneralDefinitions;
 

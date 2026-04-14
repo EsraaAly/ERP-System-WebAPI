@@ -16,24 +16,14 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Add
 
         public async Task<Result<GetSupplierItemDto>> Handle(AddSupplierItemCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.SupplierItem
-            {
-                SupplierID = request._addSupplierItemDTO.SupplierID,
-                SupplierName = request._addSupplierItemDTO.SupplierName,
-                ItemCategoryId = request._addSupplierItemDTO.ItemCategoryId,
-                ItemName = request._addSupplierItemDTO.ItemName,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addSupplierItemDTO.Adapt<Domain.Entities.GeneralDefinitions.SupplierItem>();
 
             var addedEntity = await _unitOfWork.SupplierItems.AddEntityAsync(entity);
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetSupplierItemDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = addedEntity.Adapt<GetSupplierItemDto>();
+
                 return Result<GetSupplierItemDto>.Success(dto, "SupplierItem added successfully");
             }
 
@@ -46,8 +36,8 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Add
         public AddSupplierItemValidator()
         {
             RuleFor(x => x._addSupplierItemDTO.SupplierID).GreaterThan(0).WithMessage("SupplierID is required");
-            RuleFor(x => x._addSupplierItemDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._addSupplierItemDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
+            RuleFor(x => x._addSupplierItemDTO.ItemId).NotEmpty().WithMessage("Item is required");
+            RuleFor(x => x._addSupplierItemDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategory is required");
         }
     }
 }

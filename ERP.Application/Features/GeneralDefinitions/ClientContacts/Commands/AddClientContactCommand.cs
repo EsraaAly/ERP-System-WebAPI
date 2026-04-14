@@ -16,20 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientContacts.Commands.Ad
 
         public async Task<Result<GetClientContactDto>> Handle(AddClientContactCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.ClientContact
-            {
-                ClientID = request._addClientContactDTO.ClientID,
-                ContactName = request._addClientContactDTO.ContactName,
-                Position = request._addClientContactDTO.Position,
-                Mobile = request._addClientContactDTO.Mobile,
-                Email = request._addClientContactDTO.Email,
-                Tele = request._addClientContactDTO.Tele,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addClientContactDTO.Adapt<Domain.Entities.GeneralDefinitions.ClientContact>();
 
             var addedEntity = await _unitOfWork.ClientContacts.AddEntityAsync(entity);
             if (addedEntity != null)

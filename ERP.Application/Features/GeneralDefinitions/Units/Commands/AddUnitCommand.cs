@@ -16,15 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Units.Commands.AddUnit
 
         public async Task<Result<GetUnitDto>> Handle(AddUnitCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.Unit
-            {
-                UnitName = request._addUnitDTO.UnitName,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addUnitDTO.Adapt<Domain.Entities.GeneralDefinitions.Unit>();
 
             var addedEntity = await _unitOfWork.Unit.AddEntityAsync(entity);
             if (addedEntity != null)

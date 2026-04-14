@@ -28,8 +28,8 @@ namespace ERP.Application.Features.GeneralDefinitions.StoreCategories.Commands.U
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.StoreCategories.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.StoreCategories.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
                 await _unitOfWork.CommitAsync();
                 var dto = entity.Adapt<GetStoreCategoryDto>();

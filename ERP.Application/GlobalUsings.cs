@@ -35,6 +35,8 @@ global using ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands
 global using ERP.Application.Features.GeneralDefinitions.ItemRegistries.Queries;
 global using ERP.Application.Features.GeneralDefinitions.Countries.Commands;
 global using ERP.Application.Features.GeneralDefinitions.Countries.Queries;
+global using ERP.Application.Common.Interfaces.IPersistence.GeneralDefinitions;
+
 global using ERP.Application.Common.Mapping;
 global using ERP.Domain.Entities.GeneralDefinitions;
 // ── BCL ──────────────────────────────────────────────────────

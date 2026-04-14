@@ -27,6 +27,5 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
     public class UpdateItemListDto : ItemListBase
     {
-        public int Id { get; set; }
     }
 }

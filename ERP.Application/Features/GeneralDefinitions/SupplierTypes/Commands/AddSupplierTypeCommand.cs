@@ -16,16 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Add
 
         public async Task<Result<GetSupplierTypeDto>> Handle(AddSupplierTypeCommand request, CancellationToken cancellationToken)
         {
-
-            var entity = new Domain.Entities.GeneralDefinitions.SupplierType
-            {
-                Type = request._addSupplierTypeDTO.Type,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addSupplierTypeDTO.Adapt<Domain.Entities.GeneralDefinitions.SupplierType>();
 
             var addedEntity = await _unitOfWork.SupplierTypes.AddEntityAsync(entity);
             if (addedEntity != null)

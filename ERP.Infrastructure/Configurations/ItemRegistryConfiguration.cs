@@ -9,9 +9,8 @@ namespace ERP.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<ItemRegistry> builder)
         {
             // Property configurations
-            builder.Property(ir => ir.ItemName)
-                .IsRequired()
-                .HasMaxLength(200);
+            builder.Property(ir => ir.ItemId)
+                .IsRequired();
 
             builder.Property(ir => ir.PriceWithoutVat)
                 .HasPrecision(18, 2);
@@ -25,10 +24,9 @@ namespace ERP.Infrastructure.Configurations
             builder.Property(ir => ir.PriceAfterDiscount)
                 .HasPrecision(18, 2);
 
-            // Foreign key relationships
-            builder.HasOne(ir => ir.ItemCategory)
+            builder.HasOne(ir => ir.Item)
                 .WithMany()
-                .HasForeignKey(ir => ir.ItemCategoryId)
+                .HasForeignKey(ir => ir.ItemId)
                 .IsRequired();
 
             builder.HasOne(ir => ir.ClientType)

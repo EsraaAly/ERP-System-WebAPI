@@ -16,16 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.StoreCategories.Commands.A
 
         public async Task<Result<GetStoreCategoryDto>> Handle(AddStoreCategoryCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.StoreCategory
-            {
-                CategoryName = request._addStoreCategoryDTO.CategoryName,
-                CategoryNameAr = request._addStoreCategoryDTO.CategoryNameAr,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addStoreCategoryDTO.Adapt<Domain.Entities.GeneralDefinitions.StoreCategory>();
 
             var addedEntity = await _unitOfWork.StoreCategories.AddEntityAsync(entity);
             if (addedEntity != null)

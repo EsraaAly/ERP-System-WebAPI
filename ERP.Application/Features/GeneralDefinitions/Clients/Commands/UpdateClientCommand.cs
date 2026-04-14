@@ -43,10 +43,10 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.UpdateCli
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.Clients.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.Clients.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
-                var dto = updatedEntity.Adapt<GetClientDto>();
+                var dto = entity.Adapt<GetClientDto>();
                 await _unitOfWork.CommitAsync();
                 return Result<GetClientDto>.Success(dto, "Client updated successfully");
             }

@@ -2,6 +2,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Up
 {
     public class UpdateItemRegistryCommand : IRequest<Result<GetItemRegistryDto>>
     {
+        public int Id { get; set; }
         public UpdateItemRegistryDto _updateItemRegistryDTO { get; set; }
     }
 
@@ -16,14 +17,13 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Up
 
         public async Task<Result<GetItemRegistryDto>> Handle(UpdateItemRegistryCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.ItemRegistries.GetEntityByIdAsync(request._updateItemRegistryDTO.Id);
+            var entity = await _unitOfWork.ItemRegistries.GetEntityByIdAsync(request.Id);
             if (entity == null)
             {
                 return Result<GetItemRegistryDto>.Failure("ItemRegistry not found");
             }
 
-            entity.ItemCategoryId = request._updateItemRegistryDTO.ItemCategoryId;
-            entity.ItemName = request._updateItemRegistryDTO.ItemName;
+            entity.ItemId = request._updateItemRegistryDTO.ItemId;
             entity.ClientTypeId = request._updateItemRegistryDTO.ClientTypeId;
             entity.RegionId = request._updateItemRegistryDTO.RegionId;
             entity.StoreId = request._updateItemRegistryDTO.StoreId;
@@ -36,11 +36,11 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Up
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.ItemRegistries.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.ItemRegistries.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
-                var dto = updatedEntity.Adapt<GetItemRegistryDto>();
                 await _unitOfWork.CommitAsync();
+                var dto = entity.Adapt<GetItemRegistryDto>();
                 return Result<GetItemRegistryDto>.Success(dto, "ItemRegistry updated successfully");
             }
 
@@ -52,9 +52,8 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemRegistries.Commands.Up
     {
         public UpdateItemRegistryValidator()
         {
-            RuleFor(x => x._updateItemRegistryDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
-            RuleFor(x => x._updateItemRegistryDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
-            RuleFor(x => x._updateItemRegistryDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategoryId is required");
+            RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(x => x._updateItemRegistryDTO.ItemId).GreaterThan(0).WithMessage("ItemId is required");
             RuleFor(x => x._updateItemRegistryDTO.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
         }
     }

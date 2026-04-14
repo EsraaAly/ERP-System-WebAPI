@@ -31,10 +31,10 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientContacts.Commands.Up
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.ClientContacts.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.ClientContacts.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
-                var dto = updatedEntity.Adapt<GetClientContactDto>();
+                var dto = entity.Adapt<GetClientContactDto>();
                 await _unitOfWork.CommitAsync();
                 return Result<GetClientContactDto>.Success(dto, "ClientContact updated successfully");
             }

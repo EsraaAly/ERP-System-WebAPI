@@ -37,7 +37,7 @@ namespace ERP.Infrastructure.Configurations
 
             builder.HasMany(c => c.PriceList)
                 .WithOne(cpl => cpl.Client)
-                .HasForeignKey(cpl => cpl.ClientID);
+                .HasForeignKey(cpl => cpl.ClientId);
         }
     }
 }

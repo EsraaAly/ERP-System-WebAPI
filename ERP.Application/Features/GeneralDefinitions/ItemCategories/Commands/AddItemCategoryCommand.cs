@@ -16,15 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Ad
 
         public async Task<Result<GetItemCategoryDto>> Handle(AddItemCategoryCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.ItemCategory
-            {
-                ItemCategoryName = request._addItemCategoryDTO.ItemCategoryName,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addItemCategoryDTO.Adapt<Domain.Entities.GeneralDefinitions.ItemCategory>();
 
             var addedEntity = await _unitOfWork.ItemCategories.AddEntityAsync(entity);
             if (addedEntity != null)
@@ -43,7 +35,6 @@ namespace ERP.Application.Features.GeneralDefinitions.ItemCategories.Commands.Ad
         public AddItemCategoryValidator()
         {
             RuleFor(x => x._addItemCategoryDTO.ItemCategoryName).NotEmpty().WithMessage("ItemCategoryName is required");
-            RuleFor(x => x._addItemCategoryDTO.AccNo).NotEmpty().WithMessage("AccNo is required");
         }
     }
 }

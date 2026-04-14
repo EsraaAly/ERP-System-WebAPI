@@ -22,10 +22,9 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
                 return Result<GetClientPriceListDto>.Failure("ClientPriceList not found");
             }
 
-            entity.ClientID = request._updateClientPriceListDTO.ClientID;
-            entity.ItemSNo = request._updateClientPriceListDTO.ItemSNo;
+            entity.ClientId = request._updateClientPriceListDTO.ClientID;
+            entity.ItemId = request._updateClientPriceListDTO.ItemSNo;
             entity.ItemCategoryId = request._updateClientPriceListDTO.ItemCategoryId;
-            entity.ItemName = request._updateClientPriceListDTO.ItemName;
             entity.PriceWithoutVat = request._updateClientPriceListDTO.PriceWithoutVat;
             entity.Price = request._updateClientPriceListDTO.Price;
             entity.DiscountAmount = request._updateClientPriceListDTO.DiscountAmount;
@@ -33,10 +32,10 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.ClientPriceLists.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.ClientPriceLists.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
-                var dto = updatedEntity.Adapt<GetClientPriceListDto>();
+                var dto = entity.Adapt<GetClientPriceListDto>();
                 await _unitOfWork.CommitAsync();
                 return Result<GetClientPriceListDto>.Success(dto, "ClientPriceList updated successfully");
             }

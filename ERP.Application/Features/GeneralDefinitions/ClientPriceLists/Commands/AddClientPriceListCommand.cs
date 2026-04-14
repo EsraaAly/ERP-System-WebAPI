@@ -16,22 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
 
         public async Task<Result<GetClientPriceListDto>> Handle(AddClientPriceListCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.ClientPriceList
-            {
-                ClientID = request._addClientPriceListDTO.ClientID,
-                ItemSNo = request._addClientPriceListDTO.ItemSNo,
-                ItemCategoryId = request._addClientPriceListDTO.ItemCategoryId,
-                ItemName = request._addClientPriceListDTO.ItemName,
-                PriceWithoutVat = request._addClientPriceListDTO.PriceWithoutVat,
-                Price = request._addClientPriceListDTO.Price,
-                DiscountAmount = request._addClientPriceListDTO.DiscountAmount,
-                PriceAfterDiscount = request._addClientPriceListDTO.PriceAfterDiscount,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addClientPriceListDTO.Adapt<Domain.Entities.GeneralDefinitions.ClientPriceList>();
 
             var addedEntity = await _unitOfWork.ClientPriceLists.AddEntityAsync(entity);
             if (addedEntity != null)

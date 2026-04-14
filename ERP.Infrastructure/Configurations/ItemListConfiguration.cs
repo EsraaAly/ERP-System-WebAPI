@@ -13,7 +13,7 @@ namespace ERP.Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.Property(il => il.Unit)
+            builder.Property(il => il.UnitId)
                 .IsRequired()
                 .HasMaxLength(50);
 
@@ -25,14 +25,14 @@ namespace ERP.Infrastructure.Configurations
 
             // Foreign key relationships
             builder.HasOne(il => il.ItemCategory)
-                .WithMany()
+                .WithMany() 
                 .HasForeignKey(il => il.ItemCategoryId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(il => il.Unit)
                 .WithMany()
-                .HasForeignKey(il => il.UnitId)
-                .IsRequired();
+                .HasForeignKey(il => il.UnitId);
         }
     }
 }

@@ -16,20 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierContacts.Commands.
 
         public async Task<Result<GetSupplierContactDto>> Handle(AddSupplierContactCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.SupplierContact
-            {
-                SupplierID = request._addSupplierContactDTO.SupplierID,
-                Name = request._addSupplierContactDTO.Name,
-                Position = request._addSupplierContactDTO.Position,
-                Email = request._addSupplierContactDTO.Email,
-                Phone = request._addSupplierContactDTO.Phone,
-                Mobile = request._addSupplierContactDTO.Mobile,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addSupplierContactDTO.Adapt<Domain.Entities.GeneralDefinitions.SupplierContact>();
 
             var addedEntity = await _unitOfWork.SupplierContacts.AddEntityAsync(entity);
             if (addedEntity != null)

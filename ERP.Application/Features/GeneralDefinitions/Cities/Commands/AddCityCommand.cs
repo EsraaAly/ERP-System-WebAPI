@@ -16,16 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Cities.Commands.AddCity
 
         public async Task<Result<GetCityDto>> Handle(AddCityCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.City
-            {
-                CityName = request._addCityDTO.CityName,
-                Country = request._addCityDTO.Country,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addCityDTO.Adapt<Domain.Entities.GeneralDefinitions.City>();
 
             var addedEntity = await _unitOfWork.Cities.AddEntityAsync(entity);
             if (addedEntity != null)

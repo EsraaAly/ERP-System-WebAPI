@@ -2,11 +2,10 @@
 {
     public class ItemRegistry : BaseEntity
     {
-        public int ItemCategoryId { get; set; }
-        
-        public ItemCategory ItemCategory { get; set; }
 
-        public string ItemName { get; set; } = string.Empty;
+        public int ItemId { get; set; }
+        
+        public ItemList Item { get; set; }
 
         public int ClientTypeId { get; set; }
         

@@ -1,3 +1,5 @@
+using ERP.Application.Features.GeneralDefinitions.ItemLists.Queries;
+
 namespace ERP.Api.Controllers.GeneralDefinitions
 {
     [ApiVersion("1.0")]
@@ -14,7 +16,7 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleCommand<AddItemListCommand, GetItemListDto>(command);
         }
 
-        [HttpGet(ApiRoutes.GeneralDefinitions.ItemLists.GetItemListById)]
+        [HttpGet(ApiRoutes.GeneralDefinitions.ItemLists.GetItemListById + "/{id}")]
         public async Task<IActionResult> GetItemListById(int id)
         {
             var query = new GetItemListByIdQuery { Id = id };
@@ -28,23 +30,26 @@ namespace ERP.Api.Controllers.GeneralDefinitions
             return await HandleQueryWithData<GetAllItemListsQuery, List<GetItemListDto>>(query);
         }
 
-        [HttpPut(ApiRoutes.GeneralDefinitions.ItemLists.UpdateItemList)]
+        [HttpPut(ApiRoutes.GeneralDefinitions.ItemLists.UpdateItemList + "/{id}")]
         public async Task<IActionResult> UpdateItemList(int id, [FromBody] UpdateItemListDto itemListDto)
         {
-            if (id != itemListDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
-            var command = new UpdateItemListCommand { _updateItemListDTO = itemListDto };
+            var command = new UpdateItemListCommand { _updateItemListDTO = itemListDto,Id=id };
             return await HandleCommand<UpdateItemListCommand, GetItemListDto>(command);
         }
 
-        [HttpDelete(ApiRoutes.GeneralDefinitions.ItemLists.DeleteItemList)]
+        [HttpDelete(ApiRoutes.GeneralDefinitions.ItemLists.DeleteItemList + "/{id}")]
         public async Task<IActionResult> DeleteItemList(int id)
         {
             var command = new DeleteItemListCommand { Id = id };
             return await HandleCommand<DeleteItemListCommand, bool>(command);
+        }
+
+        [HttpGet(ApiRoutes.GeneralDefinitions.ItemLists.GetItemListById + "/{id}")]
+        public async Task<IActionResult> GetItemListByCategoryId(int id)
+        {
+            var query = new GetItemListByCategoryIdQuery { Id = id };
+            return await HandleQueryWithData<GetItemListByCategoryIdQuery, List<GetItemListDto>>(query);
         }
     }
 }

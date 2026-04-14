@@ -16,32 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.AddClient
 
         public async Task<Result<GetClientDto>> Handle(AddClientCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.Client
-            {
-                FullName = request._addClientDTO.FullName,
-                FullNameAr = request._addClientDTO.FullNameAr,
-                ClientType = request._addClientDTO.ClientType,
-                Supervisor = request._addClientDTO.Supervisor,
-                Region = request._addClientDTO.Region,
-                Tele = request._addClientDTO.Tele,
-                ReferenceNo = request._addClientDTO.ReferenceNo,
-                Email = request._addClientDTO.Email,
-                Address = request._addClientDTO.Address,
-                Longitude = request._addClientDTO.Longitude,
-                Latitude = request._addClientDTO.Latitude,
-                SpecialClient = request._addClientDTO.SpecialClient,
-                CashLimit = request._addClientDTO.CashLimit,
-                PaymentTerms = request._addClientDTO.PaymentTerms,
-                Country = request._addClientDTO.Country,
-                City = request._addClientDTO.City,
-                AccNo = request._addClientDTO.AccNo,
-                Status = request._addClientDTO.Status,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addClientDTO.Adapt<Domain.Entities.GeneralDefinitions.Client>();
 
             var addedEntity = await _unitOfWork.Clients.AddEntityAsync(entity);
             if (addedEntity != null)

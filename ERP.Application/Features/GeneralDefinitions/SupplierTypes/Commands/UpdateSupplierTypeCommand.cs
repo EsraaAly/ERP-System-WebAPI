@@ -27,8 +27,8 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierTypes.Commands.Upd
             entity.UpdatedBy = "System";
             entity.UpdatedDate = DateTime.UtcNow;
 
-            var updatedEntity = await _unitOfWork.SupplierTypes.UpdateEntityAsync(entity);
-            if (updatedEntity != null)
+            var IsUpdated = await _unitOfWork.SupplierTypes.UpdateEntityAsync(entity);
+            if (IsUpdated)
             {
                 await _unitOfWork.CommitAsync();
                 var dto = entity.Adapt<GetSupplierTypeDto>();

@@ -18,15 +18,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientTypes.Commands.AddCl
 
         public async Task<Result<GetClientTypeDto>> Handle(AddClientTypeCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.ClientType
-            {
-                Type = request._addClientTypeDTO.Type,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addClientTypeDTO.Adapt<Domain.Entities.GeneralDefinitions.ClientType>();
 
             var addedEntity = await _unitOfWork.ClientTypes.AddEntityAsync(entity);
             if (addedEntity != null)

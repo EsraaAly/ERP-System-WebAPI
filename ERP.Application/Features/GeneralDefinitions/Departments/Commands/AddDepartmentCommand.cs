@@ -16,16 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Departments.Commands.AddDe
 
         public async Task<Result<GetDepartmentDto>> Handle(AddDepartmentCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Domain.Entities.GeneralDefinitions.Department
-            {
-                DepartmentName = request._addDepartmentDTO.DepartmentName,
-                DepartmentNameAr = request._addDepartmentDTO.DepartmentNameAr,
-                CreatedBy = "System",
-                CreatedDate = DateTime.UtcNow,
-                UpdatedBy = "",
-                UpdatedDate = null,
-                IsDeleted = false,
-            };
+            var entity = request._addDepartmentDTO.Adapt<Domain.Entities.GeneralDefinitions.Department>();
 
             var addedEntity = await _unitOfWork.Departments.AddEntityAsync(entity);
             if (addedEntity != null)

@@ -1,6 +1,5 @@
 ﻿
-using ERP.Application.Common.Interfaces.IPersistence;
-using ERP.Domain.Entities.GeneralDefinitions;
+
 
 namespace ERP.Infrastructure.Repositories
 {
@@ -16,7 +15,7 @@ namespace ERP.Infrastructure.Repositories
         private IGenericRepository<ClientType> _clientTypes;
         private IGenericRepository<Country> _countries;
         private IGenericRepository<ItemCategory> _itemCategories;
-        private IGenericRepository<ItemList> _itemLists;
+        private IItemListRepository _itemLists;
         private IGenericRepository<ItemRegistry> _itemRegistries;
         private IGenericRepository<Region> _regions;
         private IGenericRepository<Supplier> _suppliers;
@@ -42,7 +41,7 @@ namespace ERP.Infrastructure.Repositories
         public IGenericRepository<ClientType> ClientTypes => _clientTypes ??= new GenericRepository<ClientType>(_context);
         public IGenericRepository<Country> Countries => _countries ??= new GenericRepository<Country>(_context);
         public IGenericRepository<ItemCategory> ItemCategories => _itemCategories ??= new GenericRepository<ItemCategory>(_context);
-        public IGenericRepository<ItemList> ItemLists => _itemLists ??= new GenericRepository<ItemList>(_context);
+        public IItemListRepository ItemLists => _itemLists ??= new ItemListRepository(_context);
         public IGenericRepository<ItemRegistry> ItemRegistries => _itemRegistries ??= new GenericRepository<ItemRegistry>(_context);
         public IGenericRepository<Region> Regions => _regions ??= new GenericRepository<Region>(_context);
         public IGenericRepository<Supplier> Suppliers => _suppliers ??= new GenericRepository<Supplier>(_context);

@@ -15,14 +15,15 @@ namespace ERP.Infrastructure.Configurations
             builder.Property(cpl => cpl.Price)
                 .HasPrecision(18, 2);
 
-            builder.Property(cpl => cpl.ItemName)
-                .IsRequired()
-                .HasMaxLength(200);
-
             // Foreign key relationships
             builder.HasOne(cpl => cpl.Client)
                 .WithMany()
-                .HasForeignKey(cpl => cpl.ClientID)
+                .HasForeignKey(cpl => cpl.ClientId)
+                .IsRequired();
+
+            builder.HasOne(cpl => cpl.ItemList)
+                .WithMany()
+                .HasForeignKey(cpl => cpl.ItemId)
                 .IsRequired();
 
             builder.HasOne(cpl => cpl.ItemCategory)

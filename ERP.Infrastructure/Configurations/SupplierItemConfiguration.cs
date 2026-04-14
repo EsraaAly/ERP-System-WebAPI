@@ -8,24 +8,25 @@ namespace ERP.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<SupplierItem> builder)
         {
-            // Property configurations
-            builder.Property(si => si.SupplierName)
-                .IsRequired()
-                .HasMaxLength(200);
 
-            builder.Property(si => si.ItemName)
+            builder.Property(si => si.ItemId)
                 .IsRequired()
                 .HasMaxLength(200);
 
             // Foreign key relationships
             builder.HasOne(si => si.Supplier)
                 .WithMany()
-                .HasForeignKey(si => si.SupplierID)
+                .HasForeignKey(si => si.SupplierId)
                 .IsRequired();
 
             builder.HasOne(si => si.ItemCategory)
                 .WithMany()
                 .HasForeignKey(si => si.ItemCategoryId)
+                .IsRequired();
+
+            builder.HasOne(si => si.ItemList)
+                .WithMany()
+                .HasForeignKey(si => si.ItemId)
                 .IsRequired();
         }
     }

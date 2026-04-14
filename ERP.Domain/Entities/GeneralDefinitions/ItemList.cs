@@ -1,4 +1,5 @@
 ﻿using ERP.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace ERP.Domain.Entities.GeneralDefinitions
 {
@@ -6,6 +7,7 @@ namespace ERP.Domain.Entities.GeneralDefinitions
     {
         
         public int ItemCategoryId { get; set; }
+        public ItemCategory ItemCategory { get; set; }
 
         public string ItemName { get; set; }
 
@@ -13,12 +15,12 @@ namespace ERP.Domain.Entities.GeneralDefinitions
         
         public Unit Unit { get; set; }
 
+        [Range(0, 1, ErrorMessage = "Sales must be 0 (No) or 1 (Yes).")]
         public ItemSales Sales { get; set; }
 
         public int MinimumLevel { get; set; }
 
         public int ItemOrder { get; set; }
-        public ItemCategory ItemCategory { get; set; }
 
     }
 }

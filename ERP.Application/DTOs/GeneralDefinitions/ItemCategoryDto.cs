@@ -3,8 +3,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     public abstract class ItemCategoryBase
     {
         public string ItemCategoryName { get; set; } = string.Empty;
-        public string AccNo { get; set; } = string.Empty;
-        public string AccName { get; set; } = string.Empty;
+
     }
 
     public class AddItemCategoryDto : ItemCategoryBase

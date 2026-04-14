@@ -1,4 +1,5 @@
 ﻿
+
 namespace ERP.Application.Common.Interfaces.IPersistence
 {
     public interface IUnitOfWork
@@ -11,7 +12,6 @@ namespace ERP.Application.Common.Interfaces.IPersistence
         IGenericRepository<ClientType> ClientTypes { get; }
         IGenericRepository<Country> Countries { get; }
         IGenericRepository<ItemCategory> ItemCategories { get; }
-        IGenericRepository<ItemList> ItemLists { get; }
         IGenericRepository<ItemRegistry> ItemRegistries { get; }
         IGenericRepository<Region> Regions { get; }
         IGenericRepository<Supplier> Suppliers { get; }
@@ -22,6 +22,8 @@ namespace ERP.Application.Common.Interfaces.IPersistence
         IGenericRepository<Department> Departments { get; }
         IGenericRepository<Store> Stores { get; }
         IGenericRepository<StoreCategory> StoreCategories { get; }
+
+        IItemListRepository ItemLists { get; }
 
         Task CommitAsync();
         //public void Dispose();

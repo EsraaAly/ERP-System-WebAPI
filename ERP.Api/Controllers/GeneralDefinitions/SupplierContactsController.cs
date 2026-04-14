@@ -31,10 +31,6 @@ namespace ERP.Api.Controllers.GeneralDefinitions
         [HttpPut(ApiRoutes.GeneralDefinitions.SupplierContacts.UpdateSupplierContact)]
         public async Task<IActionResult> UpdateSupplierContact(int id, [FromBody] UpdateSupplierContactDto supplierContactDto)
         {
-            if (id != supplierContactDto.Id)
-            {
-                return BadRequest("ID mismatch between route parameter and request body");
-            }
 
             var command = new UpdateSupplierContactCommand { _updateSupplierContactDTO = supplierContactDto };
             return await HandleCommand<UpdateSupplierContactCommand, GetSupplierContactDto>(command);
