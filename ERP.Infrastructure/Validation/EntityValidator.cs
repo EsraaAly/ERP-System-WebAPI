@@ -38,10 +38,7 @@ namespace ERP.Infrastructure.Validation
             if (!string.IsNullOrEmpty(entity.ReferenceNo) && 
                 await context.Clients.AnyAsync(c => c.ReferenceNo == entity.ReferenceNo && c.Id != entity.Id && !c.IsDeleted))
                 errors.Add("A client with this reference number already exists.");
-            
-            if (!string.IsNullOrEmpty(entity.AccNo) && 
-                await context.Clients.AnyAsync(c => c.AccNo == entity.AccNo && c.Id != entity.Id && !c.IsDeleted))
-                errors.Add("A client with this account number already exists.");
+           
 
             if (errors.Any())
                 throw new ValidationException(errors);

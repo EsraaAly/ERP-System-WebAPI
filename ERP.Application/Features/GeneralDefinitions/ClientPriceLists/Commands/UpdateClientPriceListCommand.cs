@@ -23,7 +23,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
             }
 
             entity.ClientId = request._updateClientPriceListDTO.ClientId;
-            entity.ItemId = request._updateClientPriceListDTO.ItemSNo;
+            entity.ItemId = request._updateClientPriceListDTO.ItemId;
             entity.ItemCategoryId = request._updateClientPriceListDTO.ItemCategoryId;
             entity.PriceWithoutVat = request._updateClientPriceListDTO.PriceWithoutVat;
             entity.Price = request._updateClientPriceListDTO.Price;

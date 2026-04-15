@@ -35,13 +35,13 @@ namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.AddSupp
                 if (request._addSupplierDTO.FilePaths != null && request._addSupplierDTO.FilePaths.Any())
                 {
                     // Create folder name like Supplier-123
-                    string folderName = "S-" + addedEntity.Id;
+                    string folderName = "Suppliers\\S-" + addedEntity.Id;
 
                     foreach (var file in request._addSupplierDTO.FilePaths)
                     {
                         if (!string.IsNullOrEmpty(file.FilePath))
                         {
-                            await _fileStorageService.UploadFileAsync(folderName, file.FilePath);
+                            await _fileStorageService.UploadFileAsync(folderName, file.FilePath + "\\" + file.FileName);
                         }
                     }
                 }

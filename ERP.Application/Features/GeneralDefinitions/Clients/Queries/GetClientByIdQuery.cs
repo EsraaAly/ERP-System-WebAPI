@@ -16,7 +16,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Queries.GetClientB
 
         public async Task<Result<GetClientDto>> Handle(GetClientByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.Clients.GetEntityByIdAsync(request.Id);
+            var entity = await _unitOfWork.Clients.GetEntityByIdWithIncludesAsync(request.Id,x=>x.PriceList,x=>x.Contacts);
             if (entity == null)
             {
                 return Result<GetClientDto>.Failure("Client not found");

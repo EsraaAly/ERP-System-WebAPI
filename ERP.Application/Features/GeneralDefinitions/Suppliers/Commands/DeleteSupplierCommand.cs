@@ -43,7 +43,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.DeleteS
                 }
 
                 // Delete the folder associated with this supplier from storage
-                string folderName = "S-" + entity.Id;
+                string folderName = "Suppliers\\S-" + entity.Id;
                 await _fileStorageService.DeleteFolderAsync(folderName);
 
                 await _unitOfWork.CommitAsync();

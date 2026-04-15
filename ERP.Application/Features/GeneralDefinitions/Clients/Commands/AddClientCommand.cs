@@ -1,3 +1,5 @@
+using ERP.Application.Common.Interfaces.Services;
+
 namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.AddClient
 {
     public class AddClientCommand : IRequest<Result<GetClientDto>>
@@ -8,21 +10,43 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.AddClient
     public class AddClientHandler : IRequestHandler<AddClientCommand, Result<GetClientDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFileStorageService _fileStorageService;
 
-        public AddClientHandler(IUnitOfWork unitOfWork)
+        public AddClientHandler(IUnitOfWork unitOfWork, IFileStorageService fileStorageService)
         {
             _unitOfWork = unitOfWork;
+            _fileStorageService = fileStorageService;
         }
 
         public async Task<Result<GetClientDto>> Handle(AddClientCommand request, CancellationToken cancellationToken)
         {
             var entity = request._addClientDTO.Adapt<Domain.Entities.GeneralDefinitions.Client>();
 
+            //entity.PriceList.ForEach(i => i.ClientId = 0);
+            //entity.Contacts.ForEach(c => c.ClientId = 0);
+
             var addedEntity = await _unitOfWork.Clients.AddEntityAsync(entity);
+
             if (addedEntity != null)
             {
-                var dto = addedEntity.Adapt<GetClientDto>();
                 await _unitOfWork.CommitAsync();
+                // Handle file uploads
+                if (request._addClientDTO.FilePaths != null && request._addClientDTO.FilePaths.Any())
+                {
+                    // Create folder name like Supplier-123
+                    string folderName = "Clients\\C-" + addedEntity.Id;
+
+                    foreach (var file in request._addClientDTO.FilePaths)
+                    {
+                        if (!string.IsNullOrEmpty(file.FilePath))
+                        {
+                            await _fileStorageService.UploadFileAsync(folderName, file.FilePath+"\\"+file.FileName);
+                        }
+                    }
+                }
+
+                var dto = addedEntity.Adapt<GetClientDto>();
+
                 return Result<GetClientDto>.Success(dto, "Client added successfully");
             }
 
@@ -67,9 +91,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.AddClient
                 .GreaterThanOrEqualTo(0).WithMessage("Cash limit must be non-negative")
                 .LessThan(decimal.MaxValue).WithMessage("Cash limit exceeds maximum allowed value");
 
-            RuleFor(x => x._addClientDTO.ClientType)
-                .NotEmpty().WithMessage("Client type is required")
-                .MaximumLength(50).WithMessage("Client type cannot exceed 50 characters");
+            RuleFor(x => x._addClientDTO.ClientTypeId)
+                .GreaterThan(0).WithMessage("Client type is required");
 
             RuleFor(x => x._addClientDTO.RegionId)
                 .GreaterThan(0).WithMessage("Region is required");
@@ -95,10 +118,6 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.AddClient
 
             RuleFor(x => x._addClientDTO.Supervisor)
                 .NotEmpty().WithMessage("Supervisor is required for special clients")
-                .When(x => x._addClientDTO.SpecialClient);
-
-            RuleFor(x => x._addClientDTO.AccNo)
-                .NotEmpty().WithMessage("Account number is required for special clients")
                 .When(x => x._addClientDTO.SpecialClient);
 
             // Coordinates validation

@@ -8,7 +8,8 @@ namespace ERP.Domain.Entities.GeneralDefinitions
 
         public string FullNameAr { get; set; }
 
-        public string ClientType { get; set; }
+        public int ClientTypeId { get; set; }
+        public ClientType ClientType { get; set; }
 
         public string Supervisor { get; set; }
 

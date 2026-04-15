@@ -1,11 +1,5 @@
 namespace ERP.Application.DTOs.GeneralDefinitions
 {
-    public class FileAttachmentDto
-    {
-        public string? FilePath { get; set; }
-        public string? FileName { get; set; }
-    }
-
     public abstract class SupplierBase
     {
         public string Name { get; set; } = string.Empty;

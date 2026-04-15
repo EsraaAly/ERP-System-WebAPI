@@ -38,7 +38,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.UpdateS
                 var responseDto = entity.Adapt<GetSupplierDto>();
                 
                 // Load the updated file paths for the response
-                string folderName = "S-" + entity.Id;
+                string folderName = "Suppliers\\S-" + entity.Id;
                 var files = await _fileStorageService.GetFilesAsync(folderName);
                 if (files != null && files.Any())
                 {
@@ -81,12 +81,12 @@ namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.UpdateS
             // 4. Handle File Sync
             if (dto.FilePaths != null)
             {
-                string folderName = "S-" + entity.Id;
+                string folderName = "Suppliers\\S-" + entity.Id;
                 await _fileStorageService.DeleteFolderAsync(folderName);
                 foreach (var file in dto.FilePaths)
                 {
                     if (!string.IsNullOrEmpty(file.FilePath))
-                        await _fileStorageService.UploadFileAsync(folderName, file.FilePath);
+                        await _fileStorageService.UploadFileAsync(folderName, file.FilePath + "\\" + file.FileName);
                 }
             }
         }

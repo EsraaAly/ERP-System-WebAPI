@@ -17,10 +17,6 @@ namespace ERP.Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.Property(c => c.ClientType)
-                .IsRequired()
-                .HasMaxLength(50);
-
             builder.Property(c => c.Supervisor)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -70,6 +66,11 @@ namespace ERP.Infrastructure.Configurations
             builder.HasOne(c => c.City)
                 .WithMany()
                 .HasForeignKey(c => c.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(c => c.ClientType)
+                .WithMany()
+                .HasForeignKey(c => c.ClientTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
