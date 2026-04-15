@@ -26,7 +26,7 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.UpdateCli
             entity.FullNameAr = request._updateClientDTO.FullNameAr;
             entity.ClientType = request._updateClientDTO.ClientType;
             entity.Supervisor = request._updateClientDTO.Supervisor;
-            entity.Region = request._updateClientDTO.Region;
+            entity.RegionId = request._updateClientDTO.RegionId;
             entity.Tele = request._updateClientDTO.Tele;
             entity.ReferenceNo = request._updateClientDTO.ReferenceNo;
             entity.Email = request._updateClientDTO.Email;
@@ -36,8 +36,8 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.UpdateCli
             entity.SpecialClient = request._updateClientDTO.SpecialClient;
             entity.CashLimit = request._updateClientDTO.CashLimit;
             entity.PaymentTerms = request._updateClientDTO.PaymentTerms;
-            entity.Country = request._updateClientDTO.Country;
-            entity.City = request._updateClientDTO.City;
+            entity.CountryId = request._updateClientDTO.CountryId;
+            entity.CityId = request._updateClientDTO.CityId;
             entity.AccNo = request._updateClientDTO.AccNo;
             entity.Status = request._updateClientDTO.Status;
             entity.UpdatedBy = "System";

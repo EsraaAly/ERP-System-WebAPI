@@ -184,7 +184,7 @@ namespace ERP.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientID")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("ContactName")
@@ -225,7 +225,7 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientID");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("ClientContacts");
                 });
@@ -241,9 +241,6 @@ namespace ERP.Infrastructure.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClientId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -252,6 +249,7 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("DiscountAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
@@ -268,6 +266,7 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PriceAfterDiscount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PriceWithoutVat")
@@ -283,8 +282,6 @@ namespace ERP.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("ClientId1");
 
                     b.HasIndex("ItemCategoryId");
 
@@ -729,12 +726,10 @@ namespace ERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AccNo")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("CR")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -749,12 +744,10 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Fax")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -770,18 +763,12 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Remarks")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SupplierCountry")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SupplierTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Telephone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -791,17 +778,18 @@ namespace ERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("VATNo")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AccNo")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[AccNo] IS NOT NULL");
 
                     b.HasIndex("CR")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CR] IS NOT NULL");
 
                     b.HasIndex("CountryId");
 
@@ -811,7 +799,8 @@ namespace ERP.Infrastructure.Migrations
                     b.HasIndex("SupplierTypeId");
 
                     b.HasIndex("VATNo")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[VATNo] IS NOT NULL");
 
                     b.ToTable("Suppliers");
                 });
@@ -854,7 +843,7 @@ namespace ERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SupplierID")
+                    b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -865,7 +854,7 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SupplierID");
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("SupplierContacts");
                 });
@@ -891,21 +880,11 @@ namespace ERP.Infrastructure.Migrations
                     b.Property<int>("ItemCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ItemName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
-
-                    b.Property<int?>("SupplierId1")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SupplierName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -917,9 +896,9 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasIndex("ItemCategoryId");
 
-                    b.HasIndex("SupplierId");
+                    b.HasIndex("ItemId");
 
-                    b.HasIndex("SupplierId1");
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("SupplierItems");
                 });
@@ -1002,7 +981,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Client", "Client")
                         .WithMany("Contacts")
-                        .HasForeignKey("ClientID")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1012,14 +991,10 @@ namespace ERP.Infrastructure.Migrations
             modelBuilder.Entity("ERP.Domain.Entities.GeneralDefinitions.ClientPriceList", b =>
                 {
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Client", "Client")
-                        .WithMany()
+                        .WithMany("PriceList")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Client", null)
-                        .WithMany("PriceList")
-                        .HasForeignKey("ClientId1");
 
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.ItemCategory", "ItemCategory")
                         .WithMany()
@@ -1129,7 +1104,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Supplier", "Supplier")
                         .WithMany("Contacts")
-                        .HasForeignKey("SupplierID")
+                        .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1144,17 +1119,21 @@ namespace ERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Supplier", "Supplier")
+                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.ItemList", "ItemList")
                         .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Supplier", "Supplier")
+                        .WithMany("Items")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Supplier", null)
-                        .WithMany("Items")
-                        .HasForeignKey("SupplierId1");
-
                     b.Navigation("ItemCategory");
+
+                    b.Navigation("ItemList");
 
                     b.Navigation("Supplier");
                 });

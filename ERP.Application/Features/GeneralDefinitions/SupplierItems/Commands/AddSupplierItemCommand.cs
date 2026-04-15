@@ -35,7 +35,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Add
     {
         public AddSupplierItemValidator()
         {
-            RuleFor(x => x._addSupplierItemDTO.SupplierID).GreaterThan(0).WithMessage("SupplierID is required");
+            RuleFor(x => x._addSupplierItemDTO.SupplierId).GreaterThan(0).WithMessage("SupplierId is required");
             RuleFor(x => x._addSupplierItemDTO.ItemId).NotEmpty().WithMessage("Item is required");
             RuleFor(x => x._addSupplierItemDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategory is required");
         }

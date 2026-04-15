@@ -45,19 +45,21 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.AddClient
                 .MinimumLength(2).WithMessage("FullName must be at least 2 characters");
 
             RuleFor(x => x._addClientDTO.FullNameAr)
-                .MaximumLength(100).WithMessage("FullNameAr cannot exceed 100 characters")
-                .When(x => !string.IsNullOrEmpty(x._addClientDTO.FullNameAr));
+                .NotEmpty().WithMessage("FullNameAr is required")
+                .MaximumLength(100).WithMessage("FullNameAr cannot exceed 100 characters");
 
             RuleFor(x => x._addClientDTO.Email)
                 .EmailAddress().When(x => !string.IsNullOrEmpty(x._addClientDTO.Email)).WithMessage("Invalid email format")
                 .MaximumLength(255).WithMessage("Email cannot exceed 255 characters");
 
             RuleFor(x => x._addClientDTO.Tele)
-                .Matches(@"^\+?[\d\s-()]{10,}$").When(x => !string.IsNullOrEmpty(x._addClientDTO.Tele)).WithMessage("Invalid phone number format")
+                .NotEmpty().WithMessage("Tele is required")
+                .Matches(@"^\+?[\d\s-()]{10,}$").WithMessage("Invalid phone number format")
                 .MaximumLength(20).WithMessage("Phone number cannot exceed 20 characters");
 
             RuleFor(x => x._addClientDTO.ReferenceNo)
-                .Matches(@"^[A-Za-z0-9-]+$").When(x => !string.IsNullOrEmpty(x._addClientDTO.ReferenceNo)).WithMessage("Reference number can only contain letters, numbers, and hyphens")
+                .NotEmpty().WithMessage("ReferenceNo is required")
+                .Matches(@"^[A-Za-z0-9-]+$").WithMessage("Reference number can only contain letters, numbers, and hyphens")
                 .MaximumLength(50).WithMessage("Reference number cannot exceed 50 characters");
 
             // Business logic validations
@@ -69,21 +71,18 @@ namespace ERP.Application.Features.GeneralDefinitions.Clients.Commands.AddClient
                 .NotEmpty().WithMessage("Client type is required")
                 .MaximumLength(50).WithMessage("Client type cannot exceed 50 characters");
 
-            RuleFor(x => x._addClientDTO.Region)
-                .NotEmpty().WithMessage("Region is required")
-                .MaximumLength(100).WithMessage("Region cannot exceed 100 characters");
+            RuleFor(x => x._addClientDTO.RegionId)
+                .GreaterThan(0).WithMessage("Region is required");
 
-            RuleFor(x => x._addClientDTO.Country)
-                .NotEmpty().WithMessage("Country is required")
-                .MaximumLength(100).WithMessage("Country cannot exceed 100 characters");
+            RuleFor(x => x._addClientDTO.CountryId)
+                .GreaterThan(0).When(x => x._addClientDTO.CountryId.HasValue).WithMessage("Invalid Country");
 
-            RuleFor(x => x._addClientDTO.City)
-                .NotEmpty().WithMessage("City is required")
-                .MaximumLength(100).WithMessage("City cannot exceed 100 characters");
+            RuleFor(x => x._addClientDTO.CityId)
+                .GreaterThan(0).When(x => x._addClientDTO.CityId.HasValue).WithMessage("Invalid City");
 
             RuleFor(x => x._addClientDTO.Supervisor)
-                .MaximumLength(100).WithMessage("Supervisor name cannot exceed 100 characters")
-                .When(x => !string.IsNullOrEmpty(x._addClientDTO.Supervisor));
+                .NotEmpty().WithMessage("Supervisor is required")
+                .MaximumLength(100).WithMessage("Supervisor name cannot exceed 100 characters");
 
             RuleFor(x => x._addClientDTO.Address)
                 .MaximumLength(500).WithMessage("Address cannot exceed 500 characters")

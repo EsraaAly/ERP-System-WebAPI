@@ -260,7 +260,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientID = table.Column<int>(type: "int", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
                     ContactName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -276,8 +276,8 @@ namespace ERP.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_ClientContacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ClientContacts_Clients_ClientID",
-                        column: x => x.ClientID,
+                        name: "FK_ClientContacts_Clients_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -289,7 +289,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientID = table.Column<int>(type: "int", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
                     ItemSNo = table.Column<int>(type: "int", nullable: false),
                     ItemCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ItemName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -307,8 +307,8 @@ namespace ERP.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_ClientPriceLists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ClientPriceLists_Clients_ClientID",
-                        column: x => x.ClientID,
+                        name: "FK_ClientPriceLists_Clients_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -320,7 +320,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    SupplierId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -336,8 +336,8 @@ namespace ERP.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_SupplierContacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SupplierContacts_Suppliers_SupplierID",
-                        column: x => x.SupplierID,
+                        name: "FK_SupplierContacts_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -349,7 +349,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    SupplierId = table.Column<int>(type: "int", nullable: false),
                     SupplierName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ItemCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ItemName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -363,32 +363,32 @@ namespace ERP.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_SupplierItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SupplierItems_Suppliers_SupplierID",
-                        column: x => x.SupplierID,
+                        name: "FK_SupplierItems_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientContacts_ClientID",
+                name: "IX_ClientContacts_ClientId",
                 table: "ClientContacts",
-                column: "ClientID");
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientPriceLists_ClientID",
+                name: "IX_ClientPriceLists_ClientId",
                 table: "ClientPriceLists",
-                column: "ClientID");
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SupplierContacts_SupplierID",
+                name: "IX_SupplierContacts_SupplierId",
                 table: "SupplierContacts",
-                column: "SupplierID");
+                column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SupplierItems_SupplierID",
+                name: "IX_SupplierItems_SupplierId",
                 table: "SupplierItems",
-                column: "SupplierID");
+                column: "SupplierId");
         }
 
         /// <inheritdoc />

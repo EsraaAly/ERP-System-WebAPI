@@ -22,7 +22,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientContacts.Commands.Up
                 return Result<GetClientContactDto>.Failure("ClientContact not found");
             }
 
-            entity.ClientID = request._updateClientContactDTO.ClientID;
+            entity.ClientId = request._updateClientContactDTO.ClientId;
             entity.ContactName = request._updateClientContactDTO.ContactName;
             entity.Position = request._updateClientContactDTO.Position;
             entity.Mobile = request._updateClientContactDTO.Mobile;
@@ -48,7 +48,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientContacts.Commands.Up
         public UpdateClientContactValidator()
         {
             RuleFor(x => x._updateClientContactDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
-            RuleFor(x => x._updateClientContactDTO.ClientID).GreaterThan(0).WithMessage("ClientID is required");
+            RuleFor(x => x._updateClientContactDTO.ClientId).GreaterThan(0).WithMessage("ClientId is required");
             RuleFor(x => x._updateClientContactDTO.ContactName).NotEmpty().WithMessage("ContactName is required");
             RuleFor(x => x._updateClientContactDTO.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x._updateClientContactDTO.Email)).WithMessage("Invalid email format");
         }

@@ -9,13 +9,10 @@ namespace ERP.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<SupplierItem> builder)
         {
 
-            builder.Property(si => si.ItemId)
-                .IsRequired()
-                .HasMaxLength(200);
 
             // Foreign key relationships
             builder.HasOne(si => si.Supplier)
-                .WithMany()
+                .WithMany(s => s.Items)
                 .HasForeignKey(si => si.SupplierId)
                 .IsRequired();
 

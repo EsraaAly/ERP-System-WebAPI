@@ -13,10 +13,24 @@ namespace ERP.Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.Property(c => c.ReferenceNo)
+            builder.Property(c => c.FullNameAr)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            builder.Property(c => c.ClientType)
+                .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(c => c.AccNo)
+            builder.Property(c => c.Supervisor)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(c => c.Tele)
+                .IsRequired()
+                .HasMaxLength(20);
+
+            builder.Property(c => c.ReferenceNo)
+                .IsRequired()
                 .HasMaxLength(50);
 
             builder.Property(c => c.Email)
@@ -24,6 +38,9 @@ namespace ERP.Infrastructure.Configurations
 
             builder.Property(c => c.CashLimit)
                 .HasPrecision(18, 2);
+
+            builder.Property(c => c.AccNo)
+                .HasMaxLength(50);
 
             // Unique constraints
             builder.HasIndex(c => c.FullName).IsUnique();
@@ -33,11 +50,27 @@ namespace ERP.Infrastructure.Configurations
             // Relationships
             builder.HasMany(c => c.Contacts)
                 .WithOne(cc => cc.Client)
-                .HasForeignKey(cc => cc.ClientID);
+                .HasForeignKey(cc => cc.ClientId);
 
             builder.HasMany(c => c.PriceList)
                 .WithOne(cpl => cpl.Client)
                 .HasForeignKey(cpl => cpl.ClientId);
+
+            // Foreign Key Relationships
+            builder.HasOne(c => c.Region)
+                .WithMany()
+                .HasForeignKey(c => c.RegionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(c => c.Country)
+                .WithMany()
+                .HasForeignKey(c => c.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(c => c.City)
+                .WithMany()
+                .HasForeignKey(c => c.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

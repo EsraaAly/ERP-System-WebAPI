@@ -22,7 +22,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
                 return Result<GetClientPriceListDto>.Failure("ClientPriceList not found");
             }
 
-            entity.ClientId = request._updateClientPriceListDTO.ClientID;
+            entity.ClientId = request._updateClientPriceListDTO.ClientId;
             entity.ItemId = request._updateClientPriceListDTO.ItemSNo;
             entity.ItemCategoryId = request._updateClientPriceListDTO.ItemCategoryId;
             entity.PriceWithoutVat = request._updateClientPriceListDTO.PriceWithoutVat;
@@ -49,7 +49,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
         public UpdateClientPriceListValidator()
         {
             RuleFor(x => x._updateClientPriceListDTO.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
-            RuleFor(x => x._updateClientPriceListDTO.ClientID).GreaterThan(0).WithMessage("ClientID is required");
+            RuleFor(x => x._updateClientPriceListDTO.ClientId).GreaterThan(0).WithMessage("ClientId is required");
             RuleFor(x => x._updateClientPriceListDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
             RuleFor(x => x._updateClientPriceListDTO.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
         }

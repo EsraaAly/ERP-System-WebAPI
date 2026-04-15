@@ -168,6 +168,12 @@ namespace ERP.Api.Constants
                 public const string UpdateStoreCategory = $"api/{Version}/storecategories/Update";
                 public const string DeleteStoreCategory = $"api/{Version}/storecategories/Delete";
             }
+
+            public static class Files
+            {
+                public const string OpenFile = $"api/{Version}/files/open";
+                public const string DeleteFile = $"api/{Version}/files/delete";
+            }
         }
     }
 }

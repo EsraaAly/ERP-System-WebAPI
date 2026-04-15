@@ -1,3 +1,4 @@
+using ERP.Application.Common.Interfaces.Services;
 namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.DeleteSupplier
 {
     public class DeleteSupplierCommand : IRequest<Result<bool>>
@@ -8,25 +9,45 @@ namespace ERP.Application.Features.GeneralDefinitions.Suppliers.Commands.DeleteS
     public class DeleteSupplierHandler : IRequestHandler<DeleteSupplierCommand, Result<bool>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFileStorageService _fileStorageService;
 
-        public DeleteSupplierHandler(IUnitOfWork unitOfWork)
+        public DeleteSupplierHandler(IUnitOfWork unitOfWork, IFileStorageService fileStorageService)
         {
             _unitOfWork = unitOfWork;
+            _fileStorageService = fileStorageService;
         }
 
         public async Task<Result<bool>> Handle(DeleteSupplierCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.Suppliers.GetEntityByIdAsync(request.Id);
+            var entity = await _unitOfWork.Suppliers.GetEntityByIdWithIncludesAsync(request.Id, x => x.Contacts, x => x.Items);
+
             if (entity == null)
             {
                 return Result<bool>.Failure("Supplier not found");
             }
 
             var deleted = await _unitOfWork.Suppliers.DeleteEntityAsync(request.Id);
+
             if (deleted)
             {
+                // Mark each related Contact as deleted
+                foreach (var contact in entity.Contacts)
+                {
+                    await _unitOfWork.SupplierContacts.DeleteEntityAsync(contact.Id);
+                }
+
+                // Mark each related Item as deleted
+                foreach (var item in entity.Items)
+                {
+                    await _unitOfWork.SupplierItems.DeleteEntityAsync(item.Id);
+                }
+
+                // Delete the folder associated with this supplier from storage
+                string folderName = "S-" + entity.Id;
+                await _fileStorageService.DeleteFolderAsync(folderName);
+
                 await _unitOfWork.CommitAsync();
-                return Result<bool>.Success(true, "Supplier deleted successfully");
+                return Result<bool>.Success(true, "Supplier and all related data (including files) deleted successfully");
             }
 
             return Result<bool>.Failure("Failed to delete Supplier");

@@ -1,4 +1,4 @@
-﻿
+
 
 namespace ERP.Infrastructure.Repositories
 {
@@ -41,6 +41,21 @@ namespace ERP.Infrastructure.Repositories
             }
 
             return await query.Where(i => !i.IsDeleted).ToListAsync();
+        }
+
+        public async Task<List<TEntity>> GetListByExpressionAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
+        {
+            IQueryable<TEntity> query = _appDbContext.Set<TEntity>().AsNoTracking();
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.Where(predicate).Where(i => !i.IsDeleted).ToListAsync();
         }
 
         public async Task<TEntity> GetEntityByIdAsync(int Id)

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ERP.Domain.Enums;
 
 namespace ERP.Application.DTOs.GeneralDefinitions
 {
@@ -9,6 +10,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
         [Display(Name = "Full Name")]
         public string FullName { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Arabic full name is required")]
         [StringLength(100, ErrorMessage = "Arabic full name cannot exceed 100 characters")]
         [Display(Name = "Full Name (Arabic)")]
         public string FullNameAr { get; set; } = string.Empty;
@@ -18,19 +20,21 @@ namespace ERP.Application.DTOs.GeneralDefinitions
         [Display(Name = "Client Type")]
         public string ClientType { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Supervisor is required")]
         [StringLength(100, ErrorMessage = "Supervisor name cannot exceed 100 characters")]
         [Display(Name = "Supervisor")]
         public string Supervisor { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Region is required")]
-        [StringLength(100, ErrorMessage = "Region cannot exceed 100 characters")]
         [Display(Name = "Region")]
-        public string Region { get; set; } = string.Empty;
+        public int RegionId { get; set; }
 
+        [Required(ErrorMessage = "Phone number is required")]
         [StringLength(20, ErrorMessage = "Phone number cannot exceed 20 characters")]
         [Display(Name = "Phone Number")]
         public string Tele { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Reference number is required")]
         [StringLength(50, ErrorMessage = "Reference number cannot exceed 50 characters")]
         [Display(Name = "Reference Number")]
         public string ReferenceNo { get; set; } = string.Empty;
@@ -38,46 +42,40 @@ namespace ERP.Application.DTOs.GeneralDefinitions
         [EmailAddress(ErrorMessage = "Invalid email address format")]
         [StringLength(255, ErrorMessage = "Email cannot exceed 255 characters")]
         [Display(Name = "Email Address")]
-        public string Email { get; set; } = string.Empty;
+        public string? Email { get; set; }
 
         [StringLength(500, ErrorMessage = "Address cannot exceed 500 characters")]
         [Display(Name = "Address")]
-        public string Address { get; set; } = string.Empty;
+        public string? Address { get; set; }
 
         [Display(Name = "Longitude")]
-        public string Longitude { get; set; } = string.Empty;
+        public string? Longitude { get; set; }
 
         [Display(Name = "Latitude")]
-        public string Latitude { get; set; } = string.Empty;
+        public string? Latitude { get; set; }
 
         [Display(Name = "Special Client")]
         public bool SpecialClient { get; set; }
 
         [Range(0, 999999999.99, ErrorMessage = "Cash limit must be between 0 and 999,999,999.99")]
         [Display(Name = "Cash Limit")]
-        public decimal CashLimit { get; set; }
+        public decimal? CashLimit { get; set; }
 
         [StringLength(200, ErrorMessage = "Payment terms cannot exceed 200 characters")]
         [Display(Name = "Payment Terms")]
-        public string PaymentTerms { get; set; } = string.Empty;
+        public string? PaymentTerms { get; set; }
 
-        [Required(ErrorMessage = "Country is required")]
-        [StringLength(100, ErrorMessage = "Country cannot exceed 100 characters")]
         [Display(Name = "Country")]
-        public string Country { get; set; } = string.Empty;
+        public int? CountryId { get; set; }
 
-        [Required(ErrorMessage = "City is required")]
-        [StringLength(100, ErrorMessage = "City cannot exceed 100 characters")]
         [Display(Name = "City")]
-        public string City { get; set; } = string.Empty;
+        public int? CityId { get; set; }
 
-        [StringLength(20, ErrorMessage = "Account number cannot exceed 20 characters")]
         [Display(Name = "Account Number")]
-        public string AccNo { get; set; } = string.Empty;
+        public string? AccNo { get; set; }
 
-        [StringLength(50, ErrorMessage = "Status cannot exceed 50 characters")]
         [Display(Name = "Status")]
-        public string Status { get; set; } = string.Empty;
+        public ClientStatus Status { get; set; }
     }
 
     public class AddClientDto : ClientBase
@@ -109,6 +107,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
         [Display(Name = "Full Name")]
         public new string FullName { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Arabic full name is required")]
         [StringLength(100, ErrorMessage = "Arabic full name cannot exceed 100 characters")]
         [Display(Name = "Full Name (Arabic)")]
         public new string FullNameAr { get; set; } = string.Empty;
@@ -118,19 +117,21 @@ namespace ERP.Application.DTOs.GeneralDefinitions
         [Display(Name = "Client Type")]
         public new string ClientType { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Supervisor is required")]
         [StringLength(100, ErrorMessage = "Supervisor name cannot exceed 100 characters")]
         [Display(Name = "Supervisor")]
         public new string Supervisor { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Region is required")]
-        [StringLength(100, ErrorMessage = "Region cannot exceed 100 characters")]
         [Display(Name = "Region")]
-        public new string Region { get; set; } = string.Empty;
+        public new int RegionId { get; set; }
 
+        [Required(ErrorMessage = "Phone number is required")]
         [StringLength(20, ErrorMessage = "Phone number cannot exceed 20 characters")]
         [Display(Name = "Phone Number")]
         public new string Tele { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Reference number is required")]
         [StringLength(50, ErrorMessage = "Reference number cannot exceed 50 characters")]
         [Display(Name = "Reference Number")]
         public new string ReferenceNo { get; set; } = string.Empty;
@@ -138,45 +139,39 @@ namespace ERP.Application.DTOs.GeneralDefinitions
         [EmailAddress(ErrorMessage = "Invalid email address format")]
         [StringLength(255, ErrorMessage = "Email cannot exceed 255 characters")]
         [Display(Name = "Email Address")]
-        public new string Email { get; set; } = string.Empty;
+        public new string? Email { get; set; }
 
         [StringLength(500, ErrorMessage = "Address cannot exceed 500 characters")]
         [Display(Name = "Address")]
-        public new string Address { get; set; } = string.Empty;
+        public new string? Address { get; set; }
 
         [Display(Name = "Longitude")]
-        public new string Longitude { get; set; } = string.Empty;
+        public new string? Longitude { get; set; }
 
         [Display(Name = "Latitude")]
-        public new string Latitude { get; set; } = string.Empty;
+        public new string? Latitude { get; set; }
 
         [Display(Name = "Special Client")]
         public new bool SpecialClient { get; set; }
 
         [Range(0, 999999999.99, ErrorMessage = "Cash limit must be between 0 and 999,999,999.99")]
         [Display(Name = "Cash Limit")]
-        public new decimal CashLimit { get; set; }
+        public new decimal? CashLimit { get; set; }
 
         [StringLength(200, ErrorMessage = "Payment terms cannot exceed 200 characters")]
         [Display(Name = "Payment Terms")]
-        public new string PaymentTerms { get; set; } = string.Empty;
+        public new string? PaymentTerms { get; set; }
 
-        [Required(ErrorMessage = "Country is required")]
-        [StringLength(100, ErrorMessage = "Country cannot exceed 100 characters")]
         [Display(Name = "Country")]
-        public new string Country { get; set; } = string.Empty;
+        public new int? CountryId { get; set; }
 
-        [Required(ErrorMessage = "City is required")]
-        [StringLength(100, ErrorMessage = "City cannot exceed 100 characters")]
         [Display(Name = "City")]
-        public new string City { get; set; } = string.Empty;
+        public new int? CityId { get; set; }
 
-        [StringLength(20, ErrorMessage = "Account number cannot exceed 20 characters")]
         [Display(Name = "Account Number")]
-        public new string AccNo { get; set; } = string.Empty;
+        public new string? AccNo { get; set; }
 
-        [StringLength(50, ErrorMessage = "Status cannot exceed 50 characters")]
         [Display(Name = "Status")]
-        public new string Status { get; set; } = string.Empty;
+        public new ClientStatus Status { get; set; }
     }
 }

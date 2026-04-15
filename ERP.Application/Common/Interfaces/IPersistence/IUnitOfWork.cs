@@ -1,4 +1,4 @@
-﻿
+
 
 namespace ERP.Application.Common.Interfaces.IPersistence
 {

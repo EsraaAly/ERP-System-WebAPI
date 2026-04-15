@@ -24,7 +24,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierContacts.Commands.
                 return Result<GetSupplierContactDto>.Failure("SupplierContact not found");
             }
 
-            entity.SupplierID = request._updateSupplierContactDTO.SupplierID;
+            entity.SupplierId = request._updateSupplierContactDTO.SupplierId;
             entity.Name = request._updateSupplierContactDTO.Name;
             entity.Position = request._updateSupplierContactDTO.Position;
             entity.Email = request._updateSupplierContactDTO.Email;
@@ -50,7 +50,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierContacts.Commands.
         public UpdateSupplierContactValidator()
         {
             RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
-            RuleFor(x => x._updateSupplierContactDTO.SupplierID).GreaterThan(0).WithMessage("SupplierID is required");
+            RuleFor(x => x._updateSupplierContactDTO.SupplierId).GreaterThan(0).WithMessage("SupplierId is required");
             RuleFor(x => x._updateSupplierContactDTO.Name).NotEmpty().WithMessage("Name is required");
             RuleFor(x => x._updateSupplierContactDTO.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x._updateSupplierContactDTO.Email)).WithMessage("Invalid email format");
         }

@@ -15,9 +15,15 @@ namespace ERP.Infrastructure.Configurations
             builder.Property(cpl => cpl.Price)
                 .HasPrecision(18, 2);
 
+            builder.Property(cpl => cpl.DiscountAmount)
+                .HasPrecision(18, 2);
+
+            builder.Property(cpl => cpl.PriceAfterDiscount)
+                .HasPrecision(18, 2);
+
             // Foreign key relationships
             builder.HasOne(cpl => cpl.Client)
-                .WithMany()
+                .WithMany(c => c.PriceList)
                 .HasForeignKey(cpl => cpl.ClientId)
                 .IsRequired();
 

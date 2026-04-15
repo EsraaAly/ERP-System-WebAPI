@@ -1,5 +1,11 @@
 namespace ERP.Application.DTOs.GeneralDefinitions
 {
+    public class FileAttachmentDto
+    {
+        public string? FilePath { get; set; }
+        public string? FileName { get; set; }
+    }
+
     public abstract class SupplierBase
     {
         public string Name { get; set; } = string.Empty;
@@ -21,6 +27,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
     {
         public List<AddSupplierContactDto> Contacts { get; set; } = new List<AddSupplierContactDto>();
         public List<AddSupplierItemDto> Items { get; set; } = new List<AddSupplierItemDto>();
+        public List<FileAttachmentDto> FilePaths { get; set; } = new List<FileAttachmentDto>();
     }
 
     public class GetSupplierDto : SupplierBase
@@ -33,11 +40,15 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
         public List<GetSupplierContactDto> Contacts { get; set; } = new List<GetSupplierContactDto>();
         public List<GetSupplierItemDto> Items { get; set; } = new List<GetSupplierItemDto>();
+        public List<FileAttachmentDto> FilePaths { get; set; } = new List<FileAttachmentDto>();
+
     }
 
     public class UpdateSupplierDto : SupplierBase
     {
         public List<UpdateSupplierContactDto> Contacts { get; set; } = new List<UpdateSupplierContactDto>();
         public List<UpdateSupplierItemDto> Items { get; set; } = new List<UpdateSupplierItemDto>();
+        public List<FileAttachmentDto> FilePaths { get; set; } = new List<FileAttachmentDto>();
+
     }
 }

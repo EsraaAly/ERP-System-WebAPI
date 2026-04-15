@@ -42,7 +42,7 @@ namespace ERP.Infrastructure.Configurations
 
             builder.HasMany(s => s.Contacts)
                 .WithOne(sc => sc.Supplier)
-                .HasForeignKey(sc => sc.SupplierID);
+                .HasForeignKey(sc => sc.SupplierId);
 
             builder.HasMany(s => s.Items)
                 .WithOne(si => si.Supplier)

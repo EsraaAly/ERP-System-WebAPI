@@ -34,7 +34,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientPriceLists.Commands.
     {
         public AddClientPriceListValidator()
         {
-            RuleFor(x => x._addClientPriceListDTO.ClientID).GreaterThan(0).WithMessage("ClientID is required");
+            RuleFor(x => x._addClientPriceListDTO.ClientId).GreaterThan(0).WithMessage("ClientId is required");
             RuleFor(x => x._addClientPriceListDTO.ItemName).NotEmpty().WithMessage("ItemName is required");
             RuleFor(x => x._addClientPriceListDTO.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
         }

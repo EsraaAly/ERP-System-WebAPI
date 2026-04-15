@@ -1,4 +1,7 @@
-﻿using ERP.Application.Common.Interfaces.IPersistence;
+using ERP.Application.Common.Interfaces.IPersistence;
+using ERP.Application.Common.Interfaces.Services;
+using ERP.Application.Common.Models;
+using ERP.Infrastructure.Services.FileServices;
 using ERP.Domain.Entities.GeneralDefinitions;
 
 namespace ERP.Infrastructure
@@ -34,6 +37,10 @@ namespace ERP.Infrastructure
             services.AddScoped<IGenericRepository<Store>, GenericRepository<Store>>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // File Storage Service
+            services.Configure<FileStorageSettings>(configuration.GetSection("FileStorageSettings"));
+            services.AddScoped<IFileStorageService, FileStorageService>();
 
             return services;
         }

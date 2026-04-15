@@ -2,7 +2,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 {
     public abstract class ClientPriceListBase
     {
-        public int ClientID { get; set; }
+        public int ClientId { get; set; }
         public int ItemSNo { get; set; }
         public int ItemCategoryId { get; set; }
         public string ItemName { get; set; } = string.Empty;

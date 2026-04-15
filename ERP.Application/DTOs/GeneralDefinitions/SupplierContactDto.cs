@@ -2,7 +2,7 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 {
     public abstract class SupplierContactBase
     {
-        public int SupplierID { get; set; }
+        public int SupplierId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Position { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
@@ -25,6 +25,6 @@ namespace ERP.Application.DTOs.GeneralDefinitions
 
     public class UpdateSupplierContactDto : SupplierContactBase
     {
-
+        public int Id { get; set; }
     }
 }

@@ -187,7 +187,7 @@ namespace ERP.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientID")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("ContactName")
@@ -228,7 +228,7 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientID");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("ClientContacts");
                 });
@@ -241,7 +241,7 @@ namespace ERP.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientID")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -288,7 +288,7 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientID");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("ClientPriceLists");
                 });
@@ -706,7 +706,7 @@ namespace ERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SupplierID")
+                    b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -717,7 +717,7 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SupplierID");
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("SupplierContacts");
                 });
@@ -748,7 +748,7 @@ namespace ERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SupplierID")
+                    b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
                     b.Property<string>("SupplierName")
@@ -763,7 +763,7 @@ namespace ERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SupplierID");
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("SupplierItems");
                 });
@@ -846,7 +846,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Client", "Client")
                         .WithMany("Contacts")
-                        .HasForeignKey("ClientID")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -857,7 +857,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Client", "Client")
                         .WithMany("PriceList")
-                        .HasForeignKey("ClientID")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -868,7 +868,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Supplier", "Supplier")
                         .WithMany("Contacts")
-                        .HasForeignKey("SupplierID")
+                        .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -879,7 +879,7 @@ namespace ERP.Infrastructure.Migrations
                 {
                     b.HasOne("ERP.Domain.Entities.GeneralDefinitions.Supplier", "Supplier")
                         .WithMany("Items")
-                        .HasForeignKey("SupplierID")
+                        .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

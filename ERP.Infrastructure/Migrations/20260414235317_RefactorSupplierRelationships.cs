@@ -1,101 +1,95 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ERP.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ConvertStringPropertiesToForeignKeys : Migration
+    public partial class RefactorSupplierRelationships : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ClientPriceLists_Clients_ClientID",
-                table: "ClientPriceLists");
+            migrationBuilder.DropIndex(
+                name: "IX_Suppliers_AccNo",
+                table: "Suppliers");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_SupplierItems_Suppliers_SupplierID",
-                table: "SupplierItems");
+            migrationBuilder.DropIndex(
+                name: "IX_Suppliers_CR",
+                table: "Suppliers");
 
-            migrationBuilder.DropColumn(
-                name: "ItemCategory",
-                table: "SupplierItems");
-
-            migrationBuilder.DropColumn(
-                name: "ClientType",
-                table: "ItemRegistries");
-
-            migrationBuilder.DropColumn(
-                name: "ItemCategory",
-                table: "ItemRegistries");
-
-            migrationBuilder.DropColumn(
-                name: "ItemName",
-                table: "ItemRegistries");
-
-            migrationBuilder.DropColumn(
-                name: "Region",
-                table: "ItemRegistries");
-
-            migrationBuilder.DropColumn(
-                name: "Category",
-                table: "ItemLists");
-
-            migrationBuilder.DropColumn(
-                name: "Unit",
-                table: "ItemLists");
-
-            migrationBuilder.DropColumn(
-                name: "ItemCategory",
-                table: "ClientPriceLists");
-
-            migrationBuilder.DropColumn(
-                name: "ItemName",
-                table: "ClientPriceLists");
-
-            migrationBuilder.RenameColumn(
-                name: "SupplierID",
-                table: "SupplierItems",
-                newName: "SupplierId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_SupplierItems_SupplierID",
-                table: "SupplierItems",
-                newName: "IX_SupplierItems_SupplierId");
-
-            migrationBuilder.RenameColumn(
-                name: "ClientID",
-                table: "ClientPriceLists",
-                newName: "ClientId");
+            migrationBuilder.DropIndex(
+                name: "IX_Suppliers_VATNo",
+                table: "Suppliers");
 
             migrationBuilder.RenameColumn(
                 name: "ItemSNo",
                 table: "ClientPriceLists",
                 newName: "ItemId");
 
-            migrationBuilder.RenameIndex(
-                name: "IX_ClientPriceLists_ClientID",
-                table: "ClientPriceLists",
-                newName: "IX_ClientPriceLists_ClientId");
+            migrationBuilder.AlterColumn<string>(
+                name: "VATNo",
+                table: "Suppliers",
+                type: "nvarchar(50)",
+                maxLength: 50,
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(50)",
+                oldMaxLength: 50);
 
             migrationBuilder.AlterColumn<string>(
-                name: "SupplierName",
-                table: "SupplierItems",
-                type: "nvarchar(200)",
-                maxLength: 200,
-                nullable: false,
+                name: "Telephone",
+                table: "Suppliers",
+                type: "nvarchar(max)",
+                nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "ItemName",
-                table: "SupplierItems",
-                type: "nvarchar(200)",
-                maxLength: 200,
-                nullable: false,
+                name: "Remarks",
+                table: "Suppliers",
+                type: "nvarchar(max)",
+                nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Fax",
+                table: "Suppliers",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Email",
+                table: "Suppliers",
+                type: "nvarchar(150)",
+                maxLength: 150,
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(150)",
+                oldMaxLength: 150);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "CR",
+                table: "Suppliers",
+                type: "nvarchar(50)",
+                maxLength: 50,
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(50)",
+                oldMaxLength: 50);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "AccNo",
+                table: "Suppliers",
+                type: "nvarchar(50)",
+                maxLength: 50,
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(50)",
+                oldMaxLength: 50);
 
             migrationBuilder.AddColumn<int>(
                 name: "ItemCategoryId",
@@ -105,10 +99,11 @@ namespace ERP.Infrastructure.Migrations
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<int>(
-                name: "SupplierId1",
+                name: "ItemId",
                 table: "SupplierItems",
                 type: "int",
-                nullable: true);
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.AddColumn<int>(
                 name: "ClientTypeId",
@@ -189,12 +184,6 @@ namespace ERP.Infrastructure.Migrations
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<int>(
-                name: "ClientId1",
-                table: "ClientPriceLists",
-                type: "int",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
                 name: "ItemCategoryId",
                 table: "ClientPriceLists",
                 type: "int",
@@ -202,14 +191,35 @@ namespace ERP.Infrastructure.Migrations
                 defaultValue: 0);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_AccNo",
+                table: "Suppliers",
+                column: "AccNo",
+                unique: true,
+                filter: "[AccNo] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_CR",
+                table: "Suppliers",
+                column: "CR",
+                unique: true,
+                filter: "[CR] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_VATNo",
+                table: "Suppliers",
+                column: "VATNo",
+                unique: true,
+                filter: "[VATNo] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SupplierItems_ItemCategoryId",
                 table: "SupplierItems",
                 column: "ItemCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SupplierItems_SupplierId1",
+                name: "IX_SupplierItems_ItemId",
                 table: "SupplierItems",
-                column: "SupplierId1");
+                column: "ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemRegistries_ClientTypeId",
@@ -242,11 +252,6 @@ namespace ERP.Infrastructure.Migrations
                 column: "UnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientPriceLists_ClientId1",
-                table: "ClientPriceLists",
-                column: "ClientId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ClientPriceLists_ItemCategoryId",
                 table: "ClientPriceLists",
                 column: "ItemCategoryId");
@@ -256,20 +261,69 @@ namespace ERP.Infrastructure.Migrations
                 table: "ClientPriceLists",
                 column: "ItemId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_ClientPriceLists_Clients_ClientId",
-                table: "ClientPriceLists",
-                column: "ClientId",
-                principalTable: "Clients",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+            // Data Migration Logic to prevent FK conflicts
+            migrationBuilder.Sql(@"
+                -- Ensure default lookup values exist
+                IF NOT EXISTS (SELECT 1 FROM ItemCategories) INSERT INTO ItemCategories (ItemCategoryName, AccNo, AccName, CreatedBy, CreatedDate, IsDeleted) VALUES ('Default', '0', 'Default', 'System', GETUTCDATE(), 0);
+                IF NOT EXISTS (SELECT 1 FROM Units) INSERT INTO Units (UnitName, CreatedBy, CreatedDate, IsDeleted) VALUES ('Default', 'System', GETUTCDATE(), 0);
+                IF NOT EXISTS (SELECT 1 FROM ClientTypes) INSERT INTO ClientTypes (Type, CreatedBy, CreatedDate, IsDeleted) VALUES ('Default', 'System', GETUTCDATE(), 0);
+                IF NOT EXISTS (SELECT 1 FROM Regions) INSERT INTO Regions (RegionName, CreatedBy, CreatedDate, IsDeleted) VALUES ('Default', 'System', GETUTCDATE(), 0);
+                IF NOT EXISTS (SELECT 1 FROM StoreCategories) INSERT INTO StoreCategories (CategoryName, CategoryNameAr, CreatedBy, CreatedDate, IsDeleted) VALUES ('Default', 'Default', 'System', GETUTCDATE(), 0);
+                IF NOT EXISTS (SELECT 1 FROM Stores) INSERT INTO Stores (StoreName, StoreId, StoreCategoryId, CreatedBy, CreatedDate, IsDeleted) VALUES ('Default Store', 1, (SELECT TOP 1 Id FROM StoreCategories), 'System', GETUTCDATE(), 0);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_ClientPriceLists_Clients_ClientId1",
-                table: "ClientPriceLists",
-                column: "ClientId1",
-                principalTable: "Clients",
-                principalColumn: "Id");
+                -- Populate ItemCategories from ItemLists.Category
+                IF COL_LENGTH('ItemLists', 'Category') IS NOT NULL
+                BEGIN
+                    INSERT INTO ItemCategories (ItemCategoryName, AccNo, AccName, CreatedBy, CreatedDate, IsDeleted)
+                    SELECT DISTINCT Category, '0', 'Auto-Migrated', 'System', GETUTCDATE(), 0
+                    FROM ItemLists WHERE Category IS NOT NULL AND Category != '' AND Category NOT IN (SELECT ItemCategoryName FROM ItemCategories);
+                    UPDATE IL SET IL.ItemCategoryId = IC.Id FROM ItemLists IL JOIN ItemCategories IC ON IL.Category = IC.ItemCategoryName;
+                END
+
+                -- Populate Units from ItemLists.Unit
+                IF COL_LENGTH('ItemLists', 'Unit') IS NOT NULL
+                BEGIN
+                    INSERT INTO Units (UnitName, CreatedBy, CreatedDate, IsDeleted)
+                    SELECT DISTINCT Unit, 'System', GETUTCDATE(), 0
+                    FROM ItemLists WHERE Unit IS NOT NULL AND Unit != '' AND Unit NOT IN (SELECT UnitName FROM Units);
+                    UPDATE IL SET IL.UnitId = U.Id FROM ItemLists IL JOIN Units U ON IL.Unit = U.UnitName;
+                END
+
+                -- Populate ItemLists for ItemIds if they exist
+                IF COL_LENGTH('ItemRegistries', 'ItemName') IS NOT NULL
+                BEGIN
+                    INSERT INTO ItemLists (ItemName, ItemCategoryId, UnitId, Sales, MinimumLevel, ItemOrder, CreatedBy, CreatedDate, IsDeleted)
+                    SELECT DISTINCT ItemName, (SELECT TOP 1 Id FROM ItemCategories), (SELECT TOP 1 Id FROM Units), 1, 0, 0, 'System', GETUTCDATE(), 0
+                    FROM ItemRegistries WHERE ItemName IS NOT NULL AND ItemName != '' AND ItemName NOT IN (SELECT ItemName FROM ItemLists);
+                    UPDATE IR SET IR.ItemId = IL.Id FROM ItemRegistries IR JOIN ItemLists IL ON IR.ItemName = IL.ItemName;
+                END
+
+                -- Sync other tables
+                UPDATE ItemLists SET ItemCategoryId = (SELECT TOP 1 Id FROM ItemCategories) WHERE ItemCategoryId = 0;
+                UPDATE ItemLists SET UnitId = (SELECT TOP 1 Id FROM Units) WHERE UnitId = 0;
+                UPDATE SupplierItems SET ItemCategoryId = (SELECT TOP 1 Id FROM ItemCategories) WHERE ItemCategoryId = 0;
+                UPDATE SupplierItems SET ItemId = (SELECT TOP 1 Id FROM ItemLists) WHERE ItemId = 0;
+                UPDATE ItemRegistries SET ClientTypeId = (SELECT TOP 1 Id FROM ClientTypes) WHERE ClientTypeId = 0;
+                UPDATE ItemRegistries SET ItemId = (SELECT TOP 1 Id FROM ItemLists) WHERE ItemId = 0;
+                UPDATE ItemRegistries SET RegionId = (SELECT TOP 1 Id FROM Regions) WHERE RegionId = 0;
+                UPDATE ItemRegistries SET StoreId = (SELECT TOP 1 Id FROM Stores) WHERE StoreId = 0;
+                UPDATE ClientPriceLists SET ItemCategoryId = (SELECT TOP 1 Id FROM ItemCategories) WHERE ItemCategoryId = 0;
+                UPDATE ClientPriceLists SET ItemId = (SELECT TOP 1 Id FROM ItemLists) WHERE ItemId = 0;
+            ");
+
+            // Now safely drop the old columns
+            migrationBuilder.DropColumn(name: "SupplierCountry", table: "Suppliers");
+            migrationBuilder.DropColumn(name: "ItemCategory", table: "SupplierItems");
+            migrationBuilder.DropColumn(name: "ItemName", table: "SupplierItems");
+            migrationBuilder.DropColumn(name: "SupplierName", table: "SupplierItems");
+            migrationBuilder.DropColumn(name: "ClientType", table: "ItemRegistries");
+            migrationBuilder.DropColumn(name: "ItemCategory", table: "ItemRegistries");
+            migrationBuilder.DropColumn(name: "ItemName", table: "ItemRegistries");
+            migrationBuilder.DropColumn(name: "Region", table: "ItemRegistries");
+            migrationBuilder.DropColumn(name: "Category", table: "ItemLists");
+            migrationBuilder.DropColumn(name: "Unit", table: "ItemLists");
+            migrationBuilder.DropColumn(name: "ItemCategory", table: "ClientPriceLists");
+            migrationBuilder.DropColumn(name: "ItemName", table: "ClientPriceLists");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ClientPriceLists_ItemCategories_ItemCategoryId",
@@ -344,32 +398,17 @@ namespace ERP.Infrastructure.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_SupplierItems_Suppliers_SupplierId",
+                name: "FK_SupplierItems_ItemLists_ItemId",
                 table: "SupplierItems",
-                column: "SupplierId",
-                principalTable: "Suppliers",
+                column: "ItemId",
+                principalTable: "ItemLists",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_SupplierItems_Suppliers_SupplierId1",
-                table: "SupplierItems",
-                column: "SupplierId1",
-                principalTable: "Suppliers",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ClientPriceLists_Clients_ClientId",
-                table: "ClientPriceLists");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ClientPriceLists_Clients_ClientId1",
-                table: "ClientPriceLists");
-
             migrationBuilder.DropForeignKey(
                 name: "FK_ClientPriceLists_ItemCategories_ItemCategoryId",
                 table: "ClientPriceLists");
@@ -407,19 +446,27 @@ namespace ERP.Infrastructure.Migrations
                 table: "SupplierItems");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_SupplierItems_Suppliers_SupplierId",
+                name: "FK_SupplierItems_ItemLists_ItemId",
                 table: "SupplierItems");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_SupplierItems_Suppliers_SupplierId1",
-                table: "SupplierItems");
+            migrationBuilder.DropIndex(
+                name: "IX_Suppliers_AccNo",
+                table: "Suppliers");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Suppliers_CR",
+                table: "Suppliers");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Suppliers_VATNo",
+                table: "Suppliers");
 
             migrationBuilder.DropIndex(
                 name: "IX_SupplierItems_ItemCategoryId",
                 table: "SupplierItems");
 
             migrationBuilder.DropIndex(
-                name: "IX_SupplierItems_SupplierId1",
+                name: "IX_SupplierItems_ItemId",
                 table: "SupplierItems");
 
             migrationBuilder.DropIndex(
@@ -447,10 +494,6 @@ namespace ERP.Infrastructure.Migrations
                 table: "ItemLists");
 
             migrationBuilder.DropIndex(
-                name: "IX_ClientPriceLists_ClientId1",
-                table: "ClientPriceLists");
-
-            migrationBuilder.DropIndex(
                 name: "IX_ClientPriceLists_ItemCategoryId",
                 table: "ClientPriceLists");
 
@@ -463,7 +506,7 @@ namespace ERP.Infrastructure.Migrations
                 table: "SupplierItems");
 
             migrationBuilder.DropColumn(
-                name: "SupplierId1",
+                name: "ItemId",
                 table: "SupplierItems");
 
             migrationBuilder.DropColumn(
@@ -491,58 +534,115 @@ namespace ERP.Infrastructure.Migrations
                 table: "ItemLists");
 
             migrationBuilder.DropColumn(
-                name: "ClientId1",
-                table: "ClientPriceLists");
-
-            migrationBuilder.DropColumn(
                 name: "ItemCategoryId",
                 table: "ClientPriceLists");
-
-            migrationBuilder.RenameColumn(
-                name: "SupplierId",
-                table: "SupplierItems",
-                newName: "SupplierID");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_SupplierItems_SupplierId",
-                table: "SupplierItems",
-                newName: "IX_SupplierItems_SupplierID");
-
-            migrationBuilder.RenameColumn(
-                name: "ClientId",
-                table: "ClientPriceLists",
-                newName: "ClientID");
 
             migrationBuilder.RenameColumn(
                 name: "ItemId",
                 table: "ClientPriceLists",
                 newName: "ItemSNo");
 
-            migrationBuilder.RenameIndex(
-                name: "IX_ClientPriceLists_ClientId",
-                table: "ClientPriceLists",
-                newName: "IX_ClientPriceLists_ClientID");
+            migrationBuilder.AlterColumn<string>(
+                name: "VATNo",
+                table: "Suppliers",
+                type: "nvarchar(50)",
+                maxLength: 50,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(50)",
+                oldMaxLength: 50,
+                oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "SupplierName",
+                name: "Telephone",
+                table: "Suppliers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Remarks",
+                table: "Suppliers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Fax",
+                table: "Suppliers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Email",
+                table: "Suppliers",
+                type: "nvarchar(150)",
+                maxLength: 150,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(150)",
+                oldMaxLength: 150,
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "CR",
+                table: "Suppliers",
+                type: "nvarchar(50)",
+                maxLength: 50,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(50)",
+                oldMaxLength: 50,
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "AccNo",
+                table: "Suppliers",
+                type: "nvarchar(50)",
+                maxLength: 50,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(50)",
+                oldMaxLength: 50,
+                oldNullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "SupplierCountry",
+                table: "Suppliers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "ItemCategory",
                 table: "SupplierItems",
                 type: "nvarchar(max)",
                 nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(200)",
-                oldMaxLength: 200);
+                defaultValue: "");
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AddColumn<string>(
                 name: "ItemName",
                 table: "SupplierItems",
                 type: "nvarchar(max)",
                 nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(200)",
-                oldMaxLength: 200);
+                defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "ItemCategory",
+                name: "SupplierName",
                 table: "SupplierItems",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -641,21 +741,23 @@ namespace ERP.Infrastructure.Migrations
                 nullable: false,
                 defaultValue: "");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_ClientPriceLists_Clients_ClientID",
-                table: "ClientPriceLists",
-                column: "ClientID",
-                principalTable: "Clients",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_AccNo",
+                table: "Suppliers",
+                column: "AccNo",
+                unique: true);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_SupplierItems_Suppliers_SupplierID",
-                table: "SupplierItems",
-                column: "SupplierID",
-                principalTable: "Suppliers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_CR",
+                table: "Suppliers",
+                column: "CR",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_VATNo",
+                table: "Suppliers",
+                column: "VATNo",
+                unique: true);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Upd
                 return Result<GetSupplierItemDto>.Failure("SupplierItem not found");
             }
 
-            entity.SupplierId = request._updateSupplierItemDTO.SupplierID;
+            entity.SupplierId = request._updateSupplierItemDTO.SupplierId;
             entity.ItemCategoryId = request._updateSupplierItemDTO.ItemCategoryId;
             entity.ItemId = request._updateSupplierItemDTO.ItemId;
             entity.UpdatedBy = "System";
@@ -46,7 +46,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierItems.Commands.Upd
         public UpdateSupplierItemValidator()
         {
             RuleFor(x => x.Id).NotNull().WithMessage("Id is required").GreaterThan(0).WithMessage("Id must be greater than 0");
-            RuleFor(x => x._updateSupplierItemDTO.SupplierID).GreaterThan(0).WithMessage("SupplierID is required");
+            RuleFor(x => x._updateSupplierItemDTO.SupplierId).GreaterThan(0).WithMessage("SupplierId is required");
             RuleFor(x => x._updateSupplierItemDTO.ItemId).NotEmpty().WithMessage("Item is required");
             RuleFor(x => x._updateSupplierItemDTO.ItemCategoryId).GreaterThan(0).WithMessage("ItemCategory is required");
         }

@@ -34,7 +34,7 @@ namespace ERP.Application.Features.GeneralDefinitions.ClientContacts.Commands.Ad
     {
         public AddClientContactValidator()
         {
-            RuleFor(x => x._addClientContactDTO.ClientID).GreaterThan(0).WithMessage("ClientID is required");
+            RuleFor(x => x._addClientContactDTO.ClientId).GreaterThan(0).WithMessage("ClientId is required");
             RuleFor(x => x._addClientContactDTO.ContactName).NotEmpty().WithMessage("ContactName is required");
             RuleFor(x => x._addClientContactDTO.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x._addClientContactDTO.Email)).WithMessage("Invalid email format");
         }

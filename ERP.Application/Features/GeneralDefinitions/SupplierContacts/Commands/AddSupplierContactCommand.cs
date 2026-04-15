@@ -34,7 +34,7 @@ namespace ERP.Application.Features.GeneralDefinitions.SupplierContacts.Commands.
     {
         public AddSupplierContactValidator()
         {
-            RuleFor(x => x._addSupplierContactDTO.SupplierID).GreaterThan(0).WithMessage("SupplierID is required");
+            RuleFor(x => x._addSupplierContactDTO.SupplierId).GreaterThan(0).WithMessage("SupplierId is required");
             RuleFor(x => x._addSupplierContactDTO.Name).NotEmpty().WithMessage("Name is required");
             RuleFor(x => x._addSupplierContactDTO.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x._addSupplierContactDTO.Email)).WithMessage("Invalid email format");
         }

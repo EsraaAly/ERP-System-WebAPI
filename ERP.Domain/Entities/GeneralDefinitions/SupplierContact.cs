@@ -1,9 +1,11 @@
-﻿namespace ERP.Domain.Entities.GeneralDefinitions
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ERP.Domain.Entities.GeneralDefinitions
 {
     public class SupplierContact : BaseEntity
     {
         
-        public int SupplierID { get; set; }
+        public int SupplierId { get; set; }
 
         public string Name { get; set; }
 
@@ -15,6 +17,7 @@
 
         public string Mobile { get; set; }
 
+        [ForeignKey("SupplierId")]
         public Supplier Supplier { get; set; }
     }
 }

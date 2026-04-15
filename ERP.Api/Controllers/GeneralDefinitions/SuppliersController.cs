@@ -22,9 +22,8 @@ namespace ERP.Api.Controllers.GeneralDefinitions
         }
 
         [HttpGet(ApiRoutes.GeneralDefinitions.Suppliers.GetAllSuppliers)]
-        public async Task<IActionResult> GetAllSuppliers()
+        public async Task<IActionResult> GetAllSuppliers([FromQuery] GetAllSuppliersQuery query)
         {
-            var query = new GetAllSuppliersQuery();
             return await HandleQueryWithData<GetAllSuppliersQuery, List<GetSupplierDto>>(query);
         }
 

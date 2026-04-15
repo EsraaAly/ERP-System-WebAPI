@@ -1,4 +1,6 @@
-﻿namespace ERP.Domain.Entities.GeneralDefinitions
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ERP.Domain.Entities.GeneralDefinitions
 {
     public class Supplier : BaseEntity
     {
@@ -8,9 +10,11 @@
 
         public int SupplierTypeId { get; set; }
         
+        [ForeignKey("SupplierTypeId")]
         public SupplierType SupplierType { get; set; }
 
         public int CountryId { get; set; }
+        [ForeignKey("CountryId")]
         public Country country { get; set; }
 
         public string? Telephone { get; set; }
